@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import image from "/vite.svg"
 import image2 from "../../assets/bg-001.jpg"
+import Lottie from "lottie-react";
 import { FaUser } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
@@ -9,7 +10,7 @@ import { IoMdContact } from "react-icons/io";
 import { FaPhone } from "react-icons/fa6";
 import { IoEyeOffSharp } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
-
+import lottieAni from "../../Lottie/authLottie.json"
 
 
 
@@ -17,7 +18,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const Login = () => {
   const [userData, setUserData] = useState({
     Username: "",
-    Email: "", 
+    Email: "",
     Password: "",
   })
   const [togglePass, setTogglePass] = useState(false)
@@ -31,9 +32,9 @@ const Login = () => {
   console.log(userData)
   return (
     <>
-      <div className="flex items-center justify-center flex-col h-screen w-screen bg-[#F0F0F0]">
-        <div className="flex items-center w-full bg-[#F0F0F0] mt-52 justify-center">
-          <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%] mx-auto">
+      <div className="flex items-center justify-center flex-col h-screen  w-screen bg-[#F0F0F0]">
+        <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
+          <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
             <img src={image} alt="Logo" className='h-20 bg-red-700 mt-10' />
             <form className='pl-3 mt-5'>
               <div>
@@ -46,7 +47,7 @@ const Login = () => {
                 </div>
 
 
-          
+
 
                 <div className='flex flex-col relative w-full'>
                   <label htmlFor="Email" className='text-lg text-[#808080]'>Email: </label>
@@ -56,7 +57,8 @@ const Login = () => {
                   <i className='absolute bottom-3 left-2 text-lg'><MdEmail /></i>
                 </div>
 
-               
+
+
                 <div className='flex flex-col relative w-full my-3'>
                   <label htmlFor="Password" className='text-lg text-[#808080]'>Password: </label>
                   <input type={togglePass ? "text" : "password"} id='Password' name='Password' placeholder='Password' required onChange={onChangeHandler} value={userData.Password} 
@@ -66,15 +68,15 @@ const Login = () => {
                   <i className='absolute bottom-3 right-2 text-lg cursor-pointer' onClick={() => setTogglePass(prev => !prev)}>{togglePass ? <IoEye /> : <IoEyeOffSharp />}</i>
                 </div>
 
-              
+ 
               </div>
-              <p className='my-5 text-lg pl-5'>Don't have An Account? <Link to={"/register"} className='text-pink-700'>Sign up</Link></p>
+              <p className='my-5 text-lg pl-5'>Don't have an account? <Link to={"/register"} className='text-pink-700'>Sign up</Link></p>
               <button className='w-full text-white font-semibold p-3 bg-green-500 rounded-xl transition-all mb-20'>Sign In</button>
             </form>
           </div>
-          {/* <div className="right">
-            <img src={image2} className='h-[70%]' />
-          </div> */}
+          <div className="right hidden md:block w-[60%] md:mt-0 md:w-[35%] ">
+           <Lottie loop={true} animationData={lottieAni}  />
+          </div>
         </div>
       </div>
     </>

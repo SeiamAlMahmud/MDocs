@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import image from "/vite.svg"
 import image2 from "../../assets/bg-001.jpg"
+import Lottie from "lottie-react";
 import { FaUser } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
@@ -9,7 +10,7 @@ import { IoMdContact } from "react-icons/io";
 import { FaPhone } from "react-icons/fa6";
 import { IoEyeOffSharp } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
-
+import lottieAni from "../../Lottie/authLottie.json"
 
 
 
@@ -35,9 +36,9 @@ const Authentication = () => {
   console.log(userData)
   return (
     <>
-      <div className="flex items-center justify-center flex-col h-screen w-screen bg-[#F0F0F0]">
-        <div className="flex items-center w-full bg-[#F0F0F0] mt-52 justify-center">
-          <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%] mx-auto">
+      <div className="flex items-center justify-center flex-col  w-screen bg-[#F0F0F0]">
+        <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
+          <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
             <img src={image} alt="Logo" className='h-20 bg-red-700 mt-10' />
             <form className='pl-3 mt-5'>
               <div>
@@ -96,9 +97,9 @@ const Authentication = () => {
               <button className='w-full text-white font-semibold p-3 bg-green-500 rounded-xl transition-all mb-20'>Sign up</button>
             </form>
           </div>
-          {/* <div className="right">
-            <img src={image2} className='h-[70%]' />
-          </div> */}
+          <div className="right hidden md:block w-[60%] md:mt-0 md:w-[35%] ">
+           <Lottie loop={true} animationData={lottieAni}  />
+          </div>
         </div>
       </div>
     </>
