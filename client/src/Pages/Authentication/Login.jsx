@@ -17,9 +17,9 @@ import lottieAni from "../../Lottie/authLottie.json"
 
 const Login = () => {
   const [userData, setUserData] = useState({
-    Username: "",
-    Email: "",
-    Password: "",
+    username: "",
+    email: "",
+    password: "",
   })
   const [togglePass, setTogglePass] = useState(false)
   const navigate = useNavigate()
@@ -39,8 +39,8 @@ const Login = () => {
             <form className='pl-3 mt-5'>
               <div>
                 <div className='flex flex-col relative w-full'>
-                  <label htmlFor="username" className='text-lg text-[#808080]'>username: </label>
-                  <input type="text" id='username' name='Username' placeholder='Username' required onChange={onChangeHandler} value={userData.Username}
+                  <label htmlFor="username" className='text-lg text-[#808080]'>Username: </label>
+                  <input type="text" id='username' name='username' placeholder='username' required onChange={onChangeHandler} value={userData.username}
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 rounded-md mt-2 text-lg '
                   />
                   <i className='absolute bottom-3 left-2 text-lg'><FaUser /></i>
@@ -50,8 +50,8 @@ const Login = () => {
 
 
                 <div className='flex flex-col relative w-full'>
-                  <label htmlFor="Email" className='text-lg text-[#808080]'>Email: </label>
-                  <input type="email" id='Email' name='Email' placeholder='Email' required onChange={onChangeHandler} value={userData.Email} 
+                  <label htmlFor="email" className='text-lg text-[#808080]'>Email: </label>
+                  <input type="email" id='email' name='email' placeholder='email' required onChange={onChangeHandler} value={userData.email} 
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 rounded-md mt-2 text-lg '
                   />
                   <i className='absolute bottom-3 left-2 text-lg'><MdEmail /></i>
@@ -60,8 +60,8 @@ const Login = () => {
 
 
                 <div className='flex flex-col relative w-full my-3'>
-                  <label htmlFor="Password" className='text-lg text-[#808080]'>Password: </label>
-                  <input type={togglePass ? "text" : "password"} id='Password' name='Password' placeholder='Password' required onChange={onChangeHandler} value={userData.Password} 
+                  <label htmlFor="password" className='text-lg text-[#808080]'>Password: </label>
+                  <input type={togglePass ? "text" : "password"} id='password' name='password' placeholder='password' required onChange={onChangeHandler} value={userData.password} 
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 pr-8 rounded-md mt-2 text-lg '
                   />
                   <i className='absolute bottom-3 left-2 text-lg'><RiLockPasswordFill /></i>
