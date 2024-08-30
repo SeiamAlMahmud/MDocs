@@ -26,24 +26,33 @@ const Authentication = () => {
   })
   const [togglePass, setTogglePass] = useState(false)
   const [togglePassConfirm, setTogglePassConfirm] = useState(false)
-  const [toggle, setToggle] = useState(false)
   const navigate = useNavigate()
+  const now = new Date()
 
-  useEffect(()=> {
+  useEffect(() => {
     const getDraftReg = JSON.parse(localStorage.getItem("draftReg"))
-    setUserData(getDraftReg)
-  },[])
+    if (getDraftReg && getDraftReg?.expire && now.getTime() > getDraftReg?.expire) {
+      localStorage.removeItem('draftReg')
+    }
+    if (getDraftReg && now.getTime() < getDraftReg?.expire) {
+      setUserData(getDraftReg)
+    }
+  }, [])
   const onChangeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setUserData({...userData, [name]: value})
-    setToggle(prev => !prev)
+    const updatedUserData = { ...userData, [name]: value }
+    setUserData(updatedUserData)
 
-  }
-  useEffect(()=> {
-    const draftReg = JSON.stringify(userData)
+
+
+    updatedUserData.expire = now.getTime() + 1000 * 60 * 60 * 24;
+
+
+    const draftReg = JSON.stringify(updatedUserData)
     localStorage.setItem("draftReg", draftReg)
-  },[toggle])
+  }
+
   console.log(userData)
   return (
     <>
@@ -64,7 +73,7 @@ const Authentication = () => {
 
                 <div className='flex flex-col relative w-full'>
                   <label htmlFor="name" className='text-lg text-[#808080]'>Name: </label>
-                  <input type="text" id='name' name='name' placeholder='name' required onChange={onChangeHandler} value={userData.name} 
+                  <input type="text" id='name' name='name' placeholder='name' required onChange={onChangeHandler} value={userData.name}
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 rounded-md mt-2 text-lg '
                   />
                   <i className='absolute bottom-3 left-2 text-xl'><IoMdContact /></i>
@@ -72,7 +81,7 @@ const Authentication = () => {
 
                 <div className='flex flex-col relative w-full'>
                   <label htmlFor="email" className='text-lg text-[#808080]'>Email: </label>
-                  <input type="email" id='email' name='email' placeholder='email' required onChange={onChangeHandler} value={userData.email} 
+                  <input type="email" id='email' name='email' placeholder='email' required onChange={onChangeHandler} value={userData.email}
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 rounded-md mt-2 text-lg '
                   />
                   <i className='absolute bottom-3 left-2 text-lg'><MdEmail /></i>
@@ -80,7 +89,7 @@ const Authentication = () => {
 
                 <div className='flex flex-col relative w-full'>
                   <label htmlFor="phone" className='text-lg text-[#808080]'>Phone: </label>
-                  <input type="phone" id='phone' name='phone' placeholder='phone' required onChange={onChangeHandler} value={userData.phone} 
+                  <input type="phone" id='phone' name='phone' placeholder='phone' required onChange={onChangeHandler} value={userData.phone}
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 rounded-md mt-2 text-lg '
                   />
                   <i className='absolute bottom-3 left-2 text-lg'><FaPhone /></i>
@@ -88,7 +97,7 @@ const Authentication = () => {
 
                 <div className='flex flex-col relative w-full my-3'>
                   <label htmlFor="password" className='text-lg text-[#808080]'>Password: </label>
-                  <input type={togglePass ? "text" : "password"} id='password' name='password' placeholder='password' required onChange={onChangeHandler} value={userData.password} 
+                  <input type={togglePass ? "text" : "password"} id='password' name='password' placeholder='password' required onChange={onChangeHandler} value={userData.password}
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 pr-8 rounded-md mt-2 text-lg '
                   />
                   <i className='absolute bottom-3 left-2 text-lg'><RiLockPasswordFill /></i>
@@ -109,7 +118,7 @@ const Authentication = () => {
             </form>
           </div>
           <div className="right hidden md:block w-[60%] md:mt-0 md:w-[35%] ">
-           <Lottie loop={true} animationData={lottieAni}  />
+            <Lottie loop={true} animationData={lottieAni} />
           </div>
         </div>
       </div>
