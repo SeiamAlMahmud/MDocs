@@ -11,6 +11,8 @@ import { FaPhone } from "react-icons/fa6";
 import { IoEyeOffSharp } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
 import lottieAni from "../../Lottie/authLottie.json"
+import toast from "react-hot-toast"
+import axios from 'axios';
 
 
 
@@ -20,7 +22,7 @@ const Authentication = () => {
     name: "",
     username: "",
     email: "",
-    phone: 880,
+    phone: "+880",
     password: "",
     confirmPassword: ""
   })
@@ -41,7 +43,11 @@ const Authentication = () => {
   const onChangeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    const updatedUserData = { ...userData, [name]: value }
+
+    // Simple formatting: remove non-numeric characters except for '+'
+    const formattedValue = name === 'phone' ? value.replace(/[^0-9+]/g, '') : value;
+
+    const updatedUserData = { ...userData, [name]: formattedValue }
     setUserData(updatedUserData)
 
 
@@ -53,14 +59,38 @@ const Authentication = () => {
     localStorage.setItem("draftReg", draftReg)
   }
 
+
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+  
+        const response = await axios.post('http://127.0.0.1:3000/users/register',userData);
+      console.log('kk', response)
+      // Axios response object has data in response.data
+      if (response.data?.success) {
+        toast.success(response.data?.message);
+        localStorage.removeItem('draftReg');
+      }
+    } catch (error) {
+      // console.log(error)
+      if(!error?.response?.data?.success){
+        toast.success(error?.response.data?.error);
+      }
+      console.log(error.message || 'An unexpected error occurred');
+    }
+  };
+
+
   console.log(userData)
+  console.log(document.cookie);
   return (
     <>
       <div className="flex items-center justify-center flex-col  w-screen bg-[#F0F0F0]">
         <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
           <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
             <img src={image} alt="Logo" className='h-20 bg-red-700 mt-10' />
-            <form className='pl-3 mt-5'>
+            <form className='pl-3 mt-5' onSubmit={onSubmitHandler}>
               <div>
                 <div className='flex flex-col relative w-full'>
                   <label htmlFor="username" className='text-lg text-[#808080]'>Username: </label>
@@ -89,7 +119,7 @@ const Authentication = () => {
 
                 <div className='flex flex-col relative w-full'>
                   <label htmlFor="phone" className='text-lg text-[#808080]'>Phone: </label>
-                  <input type="phone" id='phone' name='phone' placeholder='phone' required onChange={onChangeHandler} value={userData.phone}
+                  <input type="tel" id='phone' name='phone' placeholder='phone' required onChange={onChangeHandler} value={userData.phone}
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 rounded-md mt-2 text-lg '
                   />
                   <i className='absolute bottom-3 left-2 text-lg'><FaPhone /></i>

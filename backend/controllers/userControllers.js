@@ -14,22 +14,22 @@ const register = async (req, res) => {
 
 
         if (!name || !username || !email || !phone || !password || !confirmPassword) {
-            return res.status(400).json({ error: "Please fill all the fields." })
+            return res.status(400).json({success: false, error: "Please fill all the fields." })
         }
 
 
         if (password !== confirmPassword) {
-            return res.status(400).json({ error: "Passwords don't match" })
+            return res.status(400).json({success: false, error: "Passwords don't match" })
         }
 
         const user = await User.findOne({ username })
 
         if (user) {
-            return res.status(400).json({ error: "User is  already exists" })
+            return res.status(404).json({success: false, error: "User is  already exists" })
         }
         const userAuthByEmail = await User.findOne({ email })
         if (userAuthByEmail && userAuthByEmail?.email == email) {
-            return res.status(400).json({ error: "User is  already exists" })
+            return res.status(404).json({success: false, error: "User is  already exists" })
         }
 
         // HASHING PASSWORD
@@ -55,13 +55,17 @@ const register = async (req, res) => {
             await newUser.save();
 
             res.status(201).json({
-                _id: newUser._id,
-                name: newUser.name,
-                username: newUser.username,
-                email: newUser.email
+                success: true,
+                data: {
+                    _id: newUser._id,
+                    name: newUser.name,
+                    username: newUser.username,
+                    email: newUser.email
+                },
+                message: "User Created Successfully"
             })
         } else {
-            res.status(200).json({ error: "Invalid user Data" })
+            res.status(200).json({ success: false, error: "Invalid user Data" })
         }
 
 
