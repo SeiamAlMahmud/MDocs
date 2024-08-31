@@ -9,7 +9,7 @@ const usersRouter = require('./routes/users');
 
 
 const cors = require('cors');
-const { connectDB } = require('./DB/MoongoseDB');
+
 
 
 const app = express();
@@ -43,6 +43,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-connectDB()
 
 module.exports = app;
