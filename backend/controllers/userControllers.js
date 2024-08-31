@@ -14,22 +14,22 @@ const register = async (req, res) => {
 
 
         if (!name || !username || !email || !phone || !password || !confirmPassword) {
-            return res.status(400).json({success: false, error: "Please fill all the fields." })
+            return res.status(400).json({ success: false, error: "Please fill all the fields." })
         }
 
 
         if (password !== confirmPassword) {
-            return res.status(400).json({success: false, error: "Passwords don't match" })
+            return res.status(400).json({ success: false, error: "Passwords don't match" })
         }
 
         const user = await User.findOne({ username })
 
         if (user) {
-            return res.status(404).json({success: false, error: "User is  already exists" })
+            return res.status(404).json({ success: false, error: "User is  already exists" })
         }
         const userAuthByEmail = await User.findOne({ email })
         if (userAuthByEmail && userAuthByEmail?.email == email) {
-            return res.status(404).json({success: false, error: "User is  already exists" })
+            return res.status(404).json({ success: false, error: "User is  already exists" })
         }
 
         // HASHING PASSWORD
@@ -76,4 +76,57 @@ const register = async (req, res) => {
 
 }
 
-module.exports = { register }
+const login = async (req, res) => {
+
+
+    try {
+
+
+        const { username, email, password } = req.body;
+// console.log(req.body)
+
+        if (!username || !email || !password) {
+            return res.status(400).json({ success: false, error: "Please fill all the fields." })
+        }
+
+        const user = await User.findOne({ username, email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.json({ success: false, error: "Invalid Credentials" })
+        }
+
+
+        if (user && isMatch ) {
+            generateTokenAndSetCookie(user._id, res);
+
+            res.status(200).json({
+                success: true,
+                data: {
+                    _id: user._id,
+                    name: user.name,
+                    username: user.username,
+                    email: user.email
+                },
+                message: "User Login Successfully"
+            })
+        } else {
+            res.status(502).json({ success: false, error: "Invalid user Data" })
+        }
+
+
+    } catch (error) {
+        console.log("Error in Signin Controller", error)
+        res.status(500).json({ error: "Internal Server Error", message: error.message })
+    }
+
+}
+
+const logout = (req, res) => {
+    res.clearCookie('token');
+    res.json({success: true, message: 'Logged out successfully' });
+}
+
+module.exports = { register, login, logout }

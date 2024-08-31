@@ -13,10 +13,14 @@ const cors = require('cors');
 
 
 const app = express();
-app.use(cors({
+// CORS configuration
+const corsOptions = {
   origin: 'http://localhost:5173', // Replace with your frontend URL
-  credentials: true
-}));
+  credentials: true, // Allow cookies and authentication headers
+};
+
+app.use(cors(corsOptions));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

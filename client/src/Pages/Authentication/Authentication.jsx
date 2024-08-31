@@ -13,6 +13,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import lottieAni from "../../Lottie/authLottie.json"
 import toast from "react-hot-toast"
 import axios from 'axios';
+import { fetchingURL } from '../../FetchURL/fetchingURL';
 
 
 
@@ -60,7 +61,6 @@ const Authentication = () => {
   }
 
 
-
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -72,8 +72,8 @@ const Authentication = () => {
       if (userData.password !== userData.confirmPassword) {
         return toast.error("Passwords don't match." )
     }
-  
-        const response = await axios.post('http://127.0.0.1:3000/users/register',userData);
+   
+        const response = await axios.post(`${fetchingURL}/users/register`,userData, { withCredentials: true });
 
 
 

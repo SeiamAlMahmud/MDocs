@@ -11,6 +11,7 @@ import ErrorPage from './Foundation/ErrorPage.jsx';
 import HomePage from './Pages/HomePage.jsx';
 import Authentication from './Pages/Authentication/Authentication.jsx';
 import Login from './Pages/Authentication/Login.jsx';
+import DocContext from './Context/DocContext.jsx';
 
 
 
@@ -39,10 +40,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <DocContext>
     <Toaster
   position="top-right"
   reverseOrder={false}
 />
   <RouterProvider router={router} />
+  </DocContext>
   </StrictMode>,
 )
