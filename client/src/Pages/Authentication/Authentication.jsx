@@ -64,26 +64,39 @@ const Authentication = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
+
+      if (!userData.name || !userData.username || !userData.email || !userData.phone || !userData.password || !userData.confirmPassword) {
+        return toast.error("Please fill all the fields." )
+    }
+
+      if (userData.password !== userData.confirmPassword) {
+        return toast.error("Passwords don't match." )
+    }
   
         const response = await axios.post('http://127.0.0.1:3000/users/register',userData);
-      console.log('kk', response)
+
+
+
+      // console.log('kk', response)
+
+
       // Axios response object has data in response.data
-      if (response.data?.success) {
+      if (response?.data?.success) {
         toast.success(response.data?.message);
         localStorage.removeItem('draftReg');
+        navigate("/")
       }
     } catch (error) {
       // console.log(error)
       if(!error?.response?.data?.success){
-        toast.success(error?.response.data?.error);
+        toast.success(error?.response?.data?.error || "An unexpected error occurred");
       }
       console.log(error.message || 'An unexpected error occurred');
     }
   };
 
 
-  console.log(userData)
-  console.log(document.cookie);
+  // console.log(userData)
   return (
     <>
       <div className="flex items-center justify-center flex-col  w-screen bg-[#F0F0F0]">
