@@ -21,6 +21,8 @@ import Loading from '../../Components/Loading/Loading';
 
 
 const Authentication = () => {
+  document.title = `Registration`;
+
   const [userData, setUserData] = useState({
     name: "",
     username: "",

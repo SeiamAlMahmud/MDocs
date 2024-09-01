@@ -21,6 +21,7 @@ import Loading from '../../Components/Loading/Loading';
 
 
 const Login = () => {
+  document.title = `Login`;
   const [loading, setLoading] = useState(false)
   const [userData, setUserData] = useState({
     username: "",
@@ -45,7 +46,7 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/")
+      navigate(from)
     }
   }, [token])
   const onChangeHandler = (e) => {
@@ -75,8 +76,8 @@ const Login = () => {
         if (response?.data?.success) {
           toast.success(response.data?.message);
           setToken(true)
-            navigate('/doc')
-          
+          navigate(from)
+
         }
         // Redirect to dashboard or update UI
       }
@@ -93,7 +94,7 @@ const Login = () => {
 
   return (
     <>
-    { isVisible ? (<div className="flex items-center justify-center flex-col h-screen  w-screen bg-[#F0F0F0]">
+      {isVisible ? (<div className="flex items-center justify-center flex-col h-screen  w-screen bg-[#F0F0F0]">
         <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
           <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
             <img src={image} alt="Logo" className='h-20 bg-red-700 mt-10' />
@@ -139,7 +140,7 @@ const Login = () => {
             <Lottie loop={true} animationData={lottieAni} />
           </div>
         </div>
-      </div>) : <Loading /> }
+      </div>) : <Loading />}
     </>
   )
 }
