@@ -32,7 +32,7 @@ const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const from = location?.state?.from || "/"
-  const { token, setToken, count, isVisible, setIsVisible } = useDocContext()
+  const { token, setToken, count, isVisible, setIsVisible, setResUsername } = useDocContext()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -76,6 +76,7 @@ const Login = () => {
         if (response?.data?.success) {
           toast.success(response.data?.message);
           setToken(true)
+          setResUsername(response?.data?.data?.username)
           navigate(from)
 
         }

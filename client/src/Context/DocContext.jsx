@@ -13,7 +13,8 @@ const DocContext = ({ children }) => {
 
     const [token, setToken] = useState(false)
     const [count, setCount] = useState(0)
-  const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
+    const [resUsername, setResUsername] = useState("A B C")
 
 
 
@@ -22,21 +23,22 @@ const DocContext = ({ children }) => {
         checkLoginStatus();
         const timer = setTimeout(() => {
             setCount(prev => prev + 1)
-          }, 2000);
-      
-          return () => clearTimeout(timer);
+        }, 2000);
+
+        return () => clearTimeout(timer);
     }, [])
     // console.log(count)
 
-    
+
     const checkLoginStatus = async () => {
         try {
             const response = await axios.get(`${fetchingURL}/users/dashboard`, { withCredentials: true });
-
+            console.log(response.data)
             if (response.data?.success) {
                 setToken(true)
-               toast.success(`Welcome ${response.data?.username}`);
-            }else {
+                setResUsername(response.data?.success)
+                toast.success(`Welcome ${response.data?.username}`);
+            } else {
                 setToken(false)
             }
             // console.log('User is logged in:', response.data);
@@ -58,8 +60,8 @@ const DocContext = ({ children }) => {
             console.error('Logout failed:', error.response.data);
         }
     };
-    
-    const Contextvalue = { token, setToken, logout, count, isVisible, setIsVisible }
+
+    const Contextvalue = { token, setToken, logout, count, isVisible, setIsVisible, resUsername, setResUsername }
     return (
         <>
             <webContext.Provider value={Contextvalue}>

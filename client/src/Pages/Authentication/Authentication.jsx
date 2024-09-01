@@ -35,7 +35,7 @@ const Authentication = () => {
   const [loading, setLoading] = useState(false)
   const [togglePassConfirm, setTogglePassConfirm] = useState(false)
   const navigate = useNavigate()
-  const { token, setToken, count, isVisible, setIsVisible } = useDocContext()
+  const { token, setToken, count, isVisible, setIsVisible, setResUsername } = useDocContext()
   const now = new Date()
 
 
@@ -111,6 +111,7 @@ const Authentication = () => {
         toast.success(response.data?.message);
         localStorage.removeItem('draftReg');
         setToken(true)
+        setResUsername(response?.data?.data?.username)
         navigate("/")
       }
     } catch (error) {

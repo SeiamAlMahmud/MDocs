@@ -130,6 +130,10 @@ const logout = (req, res) => {
 }
 
 const dashboard = async (req, res) => {
+
+    try {
+        
+
     const userId = req.userId
     // console.log(userId)
     if (userId) {
@@ -139,6 +143,9 @@ const dashboard = async (req, res) => {
             res.status(200).json({ success: true, message: 'authenticated', username: response.username });
         }
     }
+} catch (error) {
+        
+}
 }
 
 module.exports = { register, login, logout, dashboard }

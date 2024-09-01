@@ -4,7 +4,9 @@ const DocHomePage = () => {
   document.title = `Doc File`;
 
   return (
-    <div>DocHomePage</div>
+    <>
+    <div className='flex items-center justify-center bg-red-500 px-20'>DocHomePage</div>
+    </>
   )
 }
 
