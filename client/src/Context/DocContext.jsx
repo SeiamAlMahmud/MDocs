@@ -12,20 +12,30 @@ export const useDocContext = () => {
 const DocContext = ({ children }) => {
 
     const [token, setToken] = useState(false)
+    const [count, setCount] = useState(0)
+  const [isVisible, setIsVisible] = useState(false);
+
 
 
 
     useEffect(() => {
         checkLoginStatus();
+        const timer = setTimeout(() => {
+            setCount(prev => prev + 1)
+          }, 1800);
+      
+          return () => clearTimeout(timer);
     }, [])
+    // console.log(count)
 
+    
     const checkLoginStatus = async () => {
         try {
             const response = await axios.get(`${fetchingURL}/users/dashboard`, { withCredentials: true });
 
             if (response.data?.success) {
                 setToken(true)
-               toast.success(`Welcome ${response.data?.username}`)
+               toast.success(`Welcome ${response.data?.username}`);
             }else {
                 setToken(false)
             }
@@ -49,7 +59,7 @@ const DocContext = ({ children }) => {
         }
     };
     
-    const Contextvalue = { token, setToken, logout }
+    const Contextvalue = { token, setToken, logout, count, isVisible, setIsVisible }
     return (
         <>
             <webContext.Provider value={Contextvalue}>

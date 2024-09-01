@@ -22,7 +22,6 @@ import Loading from '../../Components/Loading/Loading';
 
 const Login = () => {
   const [loading, setLoading] = useState(false)
-  const [isVisible, setIsVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -30,16 +29,17 @@ const Login = () => {
   })
   const [togglePass, setTogglePass] = useState(false)
   const navigate = useNavigate()
-  const { token, setToken } = useDocContext()
+  const { token, setToken, count, isVisible, setIsVisible } = useDocContext()
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsVisible(true);
+      if (count == 0) {
+        setIsVisible(true);
+      }
     }, 1800);
 
-    // Cleanup the timer if the component unmounts before the timeout
     return () => clearTimeout(timer);
-  }, []);
+  }, [isVisible]);
 
   useEffect(() => {
     if (token) {

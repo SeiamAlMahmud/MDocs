@@ -14,6 +14,8 @@ import lottieAni from "../../Lottie/authLottie.json"
 import toast from "react-hot-toast"
 import axios from 'axios';
 import { fetchingURL } from '../../FetchURL/fetchingURL';
+import { useDocContext } from '../../Context/DocContext';
+import Loading from '../../Components/Loading/Loading';
 
 
 
@@ -28,9 +30,31 @@ const Authentication = () => {
     confirmPassword: ""
   })
   const [togglePass, setTogglePass] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [togglePassConfirm, setTogglePassConfirm] = useState(false)
   const navigate = useNavigate()
+  const { token, setToken, count, isVisible, setIsVisible } = useDocContext()
   const now = new Date()
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (count == 0) {
+        setIsVisible(true);
+      }
+    }, 1800);
+
+    // Cleanup the timer if the component unmounts before the timeout
+    return () => clearTimeout(timer);
+  }, []);
+
+
+  useEffect(() => {
+    if (token) {
+      navigate("/")
+    }
+  }, [token])
+
 
   useEffect(() => {
     const getDraftReg = JSON.parse(localStorage.getItem("draftReg"))
@@ -41,6 +65,8 @@ const Authentication = () => {
       setUserData(getDraftReg)
     }
   }, [])
+
+
   const onChangeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -63,35 +89,36 @@ const Authentication = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+
+    setLoading(true)
     try {
 
       if (!userData.name || !userData.username || !userData.email || !userData.phone || !userData.password || !userData.confirmPassword) {
-        return toast.error("Please fill all the fields." )
-    }
+        return toast.error("Please fill all the fields.")
+      }
 
       if (userData.password !== userData.confirmPassword) {
-        return toast.error("Passwords don't match." )
-    }
-   
-        const response = await axios.post(`${fetchingURL}/users/register`,userData, { withCredentials: true });
+        return toast.error("Passwords don't match.")
+      }
 
-
+      const response = await axios.post(`${fetchingURL}/users/register`, userData, { withCredentials: true });
 
       // console.log('kk', response)
 
-
-      // Axios response object has data in response.data
       if (response?.data?.success) {
         toast.success(response.data?.message);
         localStorage.removeItem('draftReg');
+        setToken(true)
         navigate("/")
       }
     } catch (error) {
       // console.log(error)
-      if(!error?.response?.data?.success){
+      if (!error?.response?.data?.success) {
         toast.success(error?.response?.data?.error || "An unexpected error occurred");
       }
       console.log(error.message || 'An unexpected error occurred');
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -99,7 +126,7 @@ const Authentication = () => {
   // console.log(userData)
   return (
     <>
-      <div className="flex items-center justify-center flex-col  w-screen bg-[#F0F0F0]">
+      {isVisible ? (<div className="flex items-center justify-center flex-col  w-screen bg-[#F0F0F0]">
         <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
           <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
             <img src={image} alt="Logo" className='h-20 bg-red-700 mt-10' />
@@ -157,14 +184,14 @@ const Authentication = () => {
                 </div>
               </div>
               <p className='my-5 text-lg pl-5'>Aldready have An Account? <Link to={"/login"} className='text-pink-700'>Login</Link></p>
-              <button className='w-full text-white font-semibold p-3 bg-green-500 rounded-xl transition-all mb-20'>Sign up</button>
+              <button className='w-full text-white font-semibold p-3 bg-green-500 rounded-xl transition-all mb-20' disabled={loading}>Sign up</button>
             </form>
           </div>
           <div className="right hidden md:block w-[60%] md:mt-0 md:w-[35%] ">
             <Lottie loop={true} animationData={lottieAni} />
           </div>
         </div>
-      </div>
+      </div>) : <Loading />}
     </>
   )
 }
