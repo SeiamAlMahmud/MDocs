@@ -22,7 +22,7 @@ const DocContext = ({ children }) => {
         checkLoginStatus();
         const timer = setTimeout(() => {
             setCount(prev => prev + 1)
-          }, 1800);
+          }, 2000);
       
           return () => clearTimeout(timer);
     }, [])

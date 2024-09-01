@@ -9,7 +9,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { IoMdContact } from "react-icons/io";
 import { FaPhone } from "react-icons/fa6";
 import { IoEyeOffSharp } from "react-icons/io5";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import lottieAni from "../../Lottie/authLottie.json"
 import toast from 'react-hot-toast';
 import { fetchingURL } from '../../FetchURL/fetchingURL';
@@ -29,6 +29,8 @@ const Login = () => {
   })
   const [togglePass, setTogglePass] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
+  const from = location?.state?.from || "/"
   const { token, setToken, count, isVisible, setIsVisible } = useDocContext()
 
   useEffect(() => {
@@ -72,8 +74,9 @@ const Login = () => {
 
         if (response?.data?.success) {
           toast.success(response.data?.message);
-          navigate("/")
           setToken(true)
+            navigate('/doc')
+          
         }
         // Redirect to dashboard or update UI
       }

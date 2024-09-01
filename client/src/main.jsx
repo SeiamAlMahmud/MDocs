@@ -8,10 +8,12 @@ import { Toaster } from "react-hot-toast"
 import './index.css'
 import Root from './Foundation/Root.jsx';
 import ErrorPage from './Foundation/ErrorPage.jsx';
-import HomePage from './Pages/HomePage.jsx';
 import Authentication from './Pages/Authentication/Authentication.jsx';
 import Login from './Pages/Authentication/Login.jsx';
 import DocContext from './Context/DocContext.jsx';
+import HomePage from './Pages/HomePage/HomePage.jsx';
+import DocHomePage from './Pages/DocHomePage/DocHomePage.jsx';
+import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 
 
 
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />
+      },
+      {
+        path: "/doc",
+        element: (
+          <PrivateRoute>
+            <DocHomePage />
+          </PrivateRoute>
+        )
       }
     ],
   },
@@ -41,11 +51,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <DocContext>
-    <Toaster
-  position="top-right"
-  reverseOrder={false}
-/>
-  <RouterProvider router={router} />
-  </DocContext>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
+      <RouterProvider router={router} />
+    </DocContext>
   </StrictMode>,
 )
