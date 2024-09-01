@@ -15,8 +15,8 @@ const cors = require('cors');
 const app = express();
 // CORS configuration
 const corsOptions = {
-  origin: 'http://localhost:5173', // Replace with your frontend URL
-  credentials: true, // Allow cookies and authentication headers
+    origin: 'http://localhost:5173', // Replace with your frontend URL
+    credentials: true, // Allow cookies and authentication headers
 };
 
 app.use(cors(corsOptions));

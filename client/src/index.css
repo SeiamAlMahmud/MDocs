@@ -2,6 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
     overflow-x: hidden;
+}
+
+.loading_spinner {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.loading_spinner_circle {
+    height: 7rem;
+    width: 7rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border-top: 5px solid rgb(225, 60, 19);
+    border-right: 5px solid transparent; 
+    animation: spin 1s linear infinite ;
+}
+
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

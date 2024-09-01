@@ -1,25 +1,31 @@
 const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
+    // console.log('Auth Middleware Triggered');
+
     const token = req.cookies.jwt;
 
+    // console.log('Token from Cookie:', token);
+
     if (!token) {
-        return res.status(401).json({success: false,  error: 'Not authenticated' });
+        return res.status(401).json({ success: false, error: 'Not authenticated' });
     }
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        // console.log('Decoded:', decoded);
 
-        if (decoded.payload.exp * 1000 < Date.now()) {
-            // Token has expired
+        if (decoded.exp * 1000 < Date.now()) {
             res.clearCookie('jwt');
-            return res.status(401).json({success: false, error: 'Session expired. Please log in again.' });
+            return res.status(401).json({ success: false, error: 'Session expired. Please log in again.' });
         }
         req.userId = decoded.userId;
         next();
     } catch (err) {
-        return res.status(401).json({ error: 'Invalid token' });
+        console.error('JWT Error:', err); // Log the error
+        return res.status(401).json({ success: false, error: 'Invalid token' });
     }
 };
+
 
 module.exports = authMiddleware;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import image from "/vite.svg"
 import image2 from "../../assets/bg-001.jpg"
 import Lottie from "lottie-react";
@@ -14,12 +14,15 @@ import lottieAni from "../../Lottie/authLottie.json"
 import toast from 'react-hot-toast';
 import { fetchingURL } from '../../FetchURL/fetchingURL';
 import axios from 'axios';
+import { useDocContext } from '../../Context/DocContext';
+import Loading from '../../Components/Loading/Loading';
 
 
 
 
 const Login = () => {
   const [loading, setLoading] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -27,7 +30,22 @@ const Login = () => {
   })
   const [togglePass, setTogglePass] = useState(false)
   const navigate = useNavigate()
+  const { token, setToken } = useDocContext()
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 1800);
+
+    // Cleanup the timer if the component unmounts before the timeout
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      navigate("/")
+    }
+  }, [token])
   const onChangeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -48,18 +66,19 @@ const Login = () => {
       }
 
 
-      const response = await axios.post( `${fetchingURL}/users/login`, userData, { withCredentials: true });
+      const response = await axios.post(`${fetchingURL}/users/login`, userData, { withCredentials: true });
       if (response.data.message) {
         console.log('Login successful');
 
         if (response?.data?.success) {
           toast.success(response.data?.message);
           navigate("/")
+          setToken(true)
         }
         // Redirect to dashboard or update UI
       }
     } catch (error) {
-      if(!error?.response?.data?.success){
+      if (!error?.response?.data?.success) {
         toast.success(error?.response?.data?.error || "An unexpected error occurred");
       }
       console.error('Login failed:', error.response.data);
@@ -71,7 +90,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center flex-col h-screen  w-screen bg-[#F0F0F0]">
+    { isVisible ? (<div className="flex items-center justify-center flex-col h-screen  w-screen bg-[#F0F0F0]">
         <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
           <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
             <img src={image} alt="Logo" className='h-20 bg-red-700 mt-10' />
@@ -117,7 +136,7 @@ const Login = () => {
             <Lottie loop={true} animationData={lottieAni} />
           </div>
         </div>
-      </div>
+      </div>) : <Loading /> }
     </>
   )
 }

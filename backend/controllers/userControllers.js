@@ -83,7 +83,7 @@ const login = async (req, res) => {
 
 
         const { username, email, password } = req.body;
-// console.log(req.body)
+        // console.log(req.body)
 
         if (!username || !email || !password) {
             return res.status(400).json({ success: false, error: "Please fill all the fields." })
@@ -99,7 +99,7 @@ const login = async (req, res) => {
         }
 
 
-        if (user && isMatch ) {
+        if (user && isMatch) {
             generateTokenAndSetCookie(user._id, res);
 
             res.status(200).json({
@@ -126,7 +126,19 @@ const login = async (req, res) => {
 
 const logout = (req, res) => {
     res.clearCookie('token');
-    res.json({success: true, message: 'Logged out successfully' });
+    res.json({ success: true, message: 'Logged out successfully' });
 }
 
-module.exports = { register, login, logout }
+const dashboard = async (req, res) => {
+    const userId = req.userId
+    // console.log(userId)
+    if (userId) {
+        const response = await User.findOne({ _id: userId }).select("-password")
+        // console.log(response)
+        if (response) {
+            res.status(200).json({ success: true, message: 'authenticated', username: response.username });
+        }
+    }
+}
+
+module.exports = { register, login, logout, dashboard }

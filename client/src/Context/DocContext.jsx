@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios';
+import { fetchingURL } from '../FetchURL/fetchingURL';
+import toast from 'react-hot-toast';
 
 
 
 const webContext = createContext()
-
 export const useDocContext = () => {
     return useContext(webContext)
 }
@@ -13,22 +14,30 @@ const DocContext = ({ children }) => {
     const [token, setToken] = useState(false)
 
 
+
+    useEffect(() => {
+        checkLoginStatus();
+    }, [])
+
     const checkLoginStatus = async () => {
         try {
             const response = await axios.get(`${fetchingURL}/users/dashboard`, { withCredentials: true });
+
             if (response.data?.success) {
                 setToken(true)
+               toast.success(`Welcome ${response.data?.username}`)
+            }else {
+                setToken(false)
             }
-            console.log('User is logged in:', response.data);
+            // console.log('User is logged in:', response.data);
         } catch (error) {
-            console.log('User is not logged in:', error?.response?.data);
+            if (error.response) {
+                console.log('User is not logged in:', error?.response?.data?.error);
+            }
         }
     };
 
-    useEffect(() => {
-       
-        checkLoginStatus();
-    }, [])
+
 
     const logout = async () => {
         try {
