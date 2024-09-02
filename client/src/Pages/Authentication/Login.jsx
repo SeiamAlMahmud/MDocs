@@ -83,8 +83,9 @@ const Login = () => {
         // Redirect to dashboard or update UI
       }
     } catch (error) {
+      console.log(error?.response?.data)
       if (!error?.response?.data?.success) {
-        toast.success(error?.response?.data?.error || "An unexpected error occurred");
+        toast.error(error?.response?.data?.error || "An unexpected error occurred");
       }
       console.error('Login failed:', error.response.data);
     } finally {
@@ -95,7 +96,7 @@ const Login = () => {
 
   return (
     <>
-      {isVisible ? (<div className="flex items-center justify-center flex-col h-screen  w-screen bg-[#F0F0F0]">
+      {isVisible ? (<div className="flex items-center justify-center flex-col   w-screen bg-[#F0F0F0]">
         <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
           <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
             <img src={image} alt="Logo" className='h-20 bg-red-700 mt-10' />

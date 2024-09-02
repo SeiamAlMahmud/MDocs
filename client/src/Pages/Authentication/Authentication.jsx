@@ -16,6 +16,7 @@ import axios from 'axios';
 import { fetchingURL } from '../../FetchURL/fetchingURL';
 import { useDocContext } from '../../Context/DocContext';
 import Loading from '../../Components/Loading/Loading';
+import ScrollToTop from '../../Foundation/ScrollToTop';
 
 
 
@@ -129,8 +130,8 @@ const Authentication = () => {
   // console.log(userData)
   return (
     <>
-      {isVisible ? (<div className="flex items-center justify-center flex-col  w-screen bg-[#F0F0F0]">
-        <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
+    {isVisible ? (<div className="flex items-center justify-center flex-col  w-screen overflow-hidden my-auto "><ScrollToTop />
+        <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around ">
           <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
             <img src={image} alt="Logo" className='h-20 bg-red-700 mt-10' />
             <form className='pl-3 mt-5' onSubmit={onSubmitHandler}>
@@ -190,9 +191,7 @@ const Authentication = () => {
               <button className='w-full text-white font-semibold p-3 bg-green-500 rounded-xl transition-all mb-20' disabled={loading}>Sign up</button>
             </form>
           </div>
-          <div className="right hidden md:block w-[60%] md:mt-0 md:w-[35%] ">
-            <Lottie loop={true} animationData={lottieAni} />
-          </div>
+            <Lottie loop={true} animationData={lottieAni} className='right hidden md:block w-[60%] md:mt-0 md:w-[35%] ' />
         </div>
       </div>) : <Loading />}
     </>

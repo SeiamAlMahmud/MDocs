@@ -95,7 +95,7 @@ const login = async (req, res) => {
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.json({ success: false, error: "Invalid Credentials" })
+            return res.status(401).json({ success: false, error: "Invalid Credentials" })
         }
 
 
@@ -132,20 +132,20 @@ const logout = (req, res) => {
 const dashboard = async (req, res) => {
 
     try {
-        
 
-    const userId = req.userId
-    // console.log(userId)
-    if (userId) {
-        const response = await User.findOne({ _id: userId }).select("-password")
-        // console.log(response)
-        if (response) {
-            res.status(200).json({ success: true, message: 'authenticated', username: response.username });
+
+        const userId = req.userId
+        // console.log(userId)
+        if (userId) {
+            const response = await User.findOne({ _id: userId }).select("-password")
+            // console.log(response)
+            if (response) {
+                res.status(200).json({ success: true, message: 'authenticated', username: response.username });
+            }
         }
+    } catch (error) {
+
     }
-} catch (error) {
-        
-}
 }
 
 module.exports = { register, login, logout, dashboard }
