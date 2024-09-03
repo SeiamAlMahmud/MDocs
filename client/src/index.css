@@ -86,3 +86,7 @@ box-shadow:rgb(107, 114, 224) 0px 0px 20px;
 filter: brightness(1);
 
 } 
+
+.jodit-wysiwyg {
+    min-height: calc(100vh - 250px) !important ;
+}

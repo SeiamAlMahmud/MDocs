@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import image from "/vite.svg"
-import image2 from "../../assets/bg-001.jpg"
+import image_1212 from "/1212.png";
 import Lottie from "lottie-react";
 import { FaUser } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
@@ -16,12 +16,16 @@ import { fetchingURL } from '../../FetchURL/fetchingURL';
 import axios from 'axios';
 import { useDocContext } from '../../Context/DocContext';
 import Loading from '../../Components/Loading/Loading';
+import ScrollToTop from '../../Foundation/ScrollToTop';
 
 
 
 
 const Login = () => {
   document.title = `Login`;
+  ScrollToTop()
+
+
   const [loading, setLoading] = useState(false)
   const [userData, setUserData] = useState({
     username: "",
@@ -32,14 +36,18 @@ const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const from = location?.state?.from || "/"
-  const { token, setToken, count, isVisible, setIsVisible, setResUsername } = useDocContext()
+  // console.log(from)
+  const { token, setToken, count, isVisible, setIsVisible, setResUsername,setCount } = useDocContext()
 
   useEffect(() => {
+   
+    
     const timer = setTimeout(() => {
       if (count == 0) {
         setIsVisible(true);
       }
     }, 1800);
+    setCount(prev => prev + 1)
 
     return () => clearTimeout(timer);
   }, [isVisible]);
@@ -99,7 +107,10 @@ const Login = () => {
       {isVisible ? (<div className="flex items-center justify-center flex-col   w-screen bg-[#F0F0F0]">
         <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
           <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
-            <img src={image} alt="Logo" className='h-20 bg-red-700 mt-10' />
+          <div className='flex gap-3 items-center justify-start mt-10'>
+            <img src={image_1212} alt="Logo" className='h-20 w-20 ' />
+            <h2 className='text-5xl text-black cursor-pointer  font-bold'>MDocs</h2>
+            </div>
             <form className='pl-3 mt-5' onSubmit={onSubmitHandler}>
               <div>
                 <div className='flex flex-col relative w-full'>

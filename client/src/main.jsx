@@ -12,8 +12,9 @@ import Authentication from './Pages/Authentication/Authentication.jsx';
 import Login from './Pages/Authentication/Login.jsx';
 import DocContext from './Context/DocContext.jsx';
 import HomePage from './Pages/HomePage/HomePage.jsx';
-import DocHomePage from './Pages/DocHomePage/DocHomePage.jsx';
+import DocHomePage from './Pages/Docs/DocHomePage.jsx';
 import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
+import CreateDoc from './Pages/Docs/CreateDoc.jsx';
 
 
 
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <DocHomePage />
+          </PrivateRoute>
+        )
+      },
+      {
+        path: "/createdoc/:docsId",
+        element: (
+          <PrivateRoute>
+            <CreateDoc />
           </PrivateRoute>
         )
       }

@@ -21,11 +21,7 @@ const DocContext = ({ children }) => {
 
     useEffect(() => {
         checkLoginStatus();
-        const timer = setTimeout(() => {
-            setCount(prev => prev + 1)
-        }, 2000);
-
-        return () => clearTimeout(timer);
+   
     }, [])
     // console.log(count)
 
@@ -33,7 +29,7 @@ const DocContext = ({ children }) => {
     const checkLoginStatus = async () => {
         try {
             const response = await axios.get(`${fetchingURL}/users/dashboard`, { withCredentials: true });
-            console.log(response.data)
+            // console.log(response.data)
             if (response.data?.success) {
                 setToken(true)
                 setResUsername(response.data?.success)
@@ -61,7 +57,7 @@ const DocContext = ({ children }) => {
         }
     };
 
-    const Contextvalue = { token, setToken, logout, count, isVisible, setIsVisible, resUsername, setResUsername }
+    const Contextvalue = { token, setToken, logout, count, setCount, isVisible, setIsVisible, resUsername, setResUsername }
     return (
         <>
             <webContext.Provider value={Contextvalue}>
