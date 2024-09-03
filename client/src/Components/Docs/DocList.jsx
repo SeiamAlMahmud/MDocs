@@ -10,7 +10,7 @@ import { MdDelete } from "react-icons/md"
 
 
 
-const DocList = ({ doc }) => {
+const DocList = ({ doc, handleDeleteOpenPopup }) => {
 
     return (
         <>
@@ -24,7 +24,7 @@ const DocList = ({ doc }) => {
                     </div>
                 </div>
                 <div className="right">
-                    <MdDelete className='text-4xl ml-5 mr-2 text-[red] transition-all hover:text-red-600 cursor-pointer' />
+                    <MdDelete onClick={handleDeleteOpenPopup} className='text-4xl ml-5 mr-2 text-[red] transition-all hover:text-red-600 cursor-pointer' />
                 </div>
             </div>
 

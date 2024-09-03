@@ -2,10 +2,14 @@ import React, { useState, useRef } from 'react';
 import JoditEditor from "jodit-pro-react";
 import { useParams } from 'react-router-dom'
 import { fetchingURL } from '../../FetchURL/fetchingURL';
+import { useDocContext } from '../../Context/DocContext';
 
 const CreateDoc = () => {
-
     document.title = `Create new Doc`
+
+
+    const { token } = useDocContext()
+
     const { docsId } = useParams()
     const editor = useRef(null);
     const [content, setContent] = useState('')
@@ -55,35 +59,37 @@ const CreateDoc = () => {
 
     return (
         <div>
-            <div className='mx-2 my-3 sm:mx-5 sm:mt-6'>
+            {
+              token ? ( <div className='mx-2 my-3 sm:mx-5 sm:mt-6'>
 
-                <JoditEditor
-                    ref={editor}
-                    value={content}
-                    // config={{
-                    //     toolbar: {
-                    //       items: [
-                    //         'source', 'bold', 'italic', 'underline', '|',
-                    //         'ul', 'ol', '|',
-                    //         'image', 'link', 'file', '|',
-                    //         'align', 'undo', 'redo',
-                    //         {
-                    //           name: 'upload',
-                    //           iconURL: 'https://cdn-icons-png.flaticon.com/512/16/16097.png', // Add a custom icon URL or use your own
-                    //           exec: handleCustomButtonClick,
-                    //           tooltip: 'Upload File'
-                    //         }
-                    //       ],
-                    //     },
-                    //     uploader: {
-                    //       insertImageAsBase64URI: false,
-                    //       insertImage: handleFileUpload,
-                    //     },
-                    //   }}
-                    tabIndex={1} // tabIndex of textarea
-                    onChange={newContent => setContent(newContent)}
-                />
-            </div>
+                    <JoditEditor
+                        ref={editor}
+                        value={content}
+                        // config={{
+                        //     toolbar: {
+                        //       items: [
+                        //         'source', 'bold', 'italic', 'underline', '|',
+                        //         'ul', 'ol', '|',
+                        //         'image', 'link', 'file', '|',
+                        //         'align', 'undo', 'redo',
+                        //         {
+                        //           name: 'upload',
+                        //           iconURL: 'https://cdn-icons-png.flaticon.com/512/16/16097.png', // Add a custom icon URL or use your own
+                        //           exec: handleCustomButtonClick,
+                        //           tooltip: 'Upload File'
+                        //         }
+                        //       ],
+                        //     },
+                        //     uploader: {
+                        //       insertImageAsBase64URI: false,
+                        //       insertImage: handleFileUpload,
+                        //     },
+                        //   }}
+                        tabIndex={1} // tabIndex of textarea
+                        onChange={newContent => setContent(newContent)}
+                    />
+                </div>) : ""
+            }
         </div>
     )
 }
