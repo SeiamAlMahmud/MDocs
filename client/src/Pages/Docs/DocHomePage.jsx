@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ScrollToTop from '../../Foundation/ScrollToTop';
 import { BsPlusLg } from "react-icons/bs"
 import DocList from '../../Components/Docs/DocList';
@@ -9,14 +9,16 @@ import DeletePopUp from './DeletePopUp';
 import { fetchingURL } from '../../FetchURL/fetchingURL';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import Loading from '../../Components/Loading/Loading';
 
 const DocHomePage = () => {
   document.title = `Doc File`;
   ScrollToTop()
 
-
-
   const { token } = useDocContext()
+
+  const [fetchData, setfetchData] = useState([]);
+
   const [isCreatePopupOpen, setIsCreatePopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const popupCreateRef = useRef(null);
@@ -80,6 +82,34 @@ const DocHomePage = () => {
 
     // console.log(fetchingURL, titleState.length)
   }
+
+
+  const fetchDocs = async () => {
+    try {
+      // Replace with your actual fetching logic, like using fetch() or axios
+      const response = await axios.post(`${fetchingURL}/docbox/getDocViaUser`, {}, { withCredentials: true })
+
+      // console.log(response.data)
+      if (response.data?.success) {
+        setfetchData(response.data?.docData?.documents.reverse())
+      }
+    } catch (error) {
+      if (response?.data?.success) {
+        if (!error?.response?.data?.success) {
+          toast.success(error?.response?.data?.error || "An unexpected error occurred");
+        }
+        console.log(error.message || 'An unexpected error occurred');
+      }
+    }
+  };
+  
+  useEffect(() => {
+    fetchDocs()
+  }, [])
+  // console.log(fetchData)
+
+
+
   return (
     <>
       {token && <div >
@@ -93,8 +123,17 @@ const DocHomePage = () => {
 
         {/* ############## Doc List Section ##########  */}
         <div className='allDoc  px-5 sm:px-10 md:px-20 mt-4'>
-          <DocList handleDeleteOpenPopup={handleDeleteOpenPopup} />
-          <DocList handleDeleteOpenPopup={handleDeleteOpenPopup} />
+      { fetchData.length !== 0 ? (  <div>
+          {
+            fetchData.map((docData,idx)=> {
+              return (
+                
+                <DocList key={docData._id} handleDeleteOpenPopup={handleDeleteOpenPopup} docData={docData} />
+              )
+            })
+          }
+          </div>  ) :  <Loading />}
+         
         </div>
       </div>
       }

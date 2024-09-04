@@ -32,7 +32,7 @@ const NavbarPopup = () => {
 
    { isnavPopupRef &&  (<div  className=' border-[rgba(0,0,0,0.14)] border rounded-lg w-[45vw] sm:w-[30vw] md:w-[15vw] absolute top-[142%] right-0 bg-[#fff] pt-1'>
         <ul className='flex flex-col items-center w-full'>
-          <li onClick={() => navigate("/doc")} className='flex justify-around w-full items-center text-lg py-1   hover:bg-[#80808030] transition-all border-b-2'><i><FaUser /></i><span>My Docs</span> </li>
+          <li onClick={() => navigate("/doc")} className='flex justify-around w-full items-center text-lg py-1 cursor-pointer  hover:bg-[#80808030] transition-all border-b-2'><i><FaUser /></i><span>My Docs</span> </li>
 
           {/* <li onClick={()=> navigate("/doc")} className='flex justify-around w-full items-center text-lg py-1   hover:bg-[#80808030] transition-all'><i><FaUser /></i><span>My Docs</span> </li> */}
 

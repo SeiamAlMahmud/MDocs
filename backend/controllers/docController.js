@@ -117,19 +117,19 @@ const updateExistingTitle = async (req, res) => {
 
 const getDocsViaUser = async (req, res) => {
 
-    const { docId } = req.body;
+    const userId = req.userId;
 
     try {
-        if (!docId) {
-            return res.status(404).json({ success: false, error: "Document Reference invalid" })
+        if (!userId) {
+            return res.status(404).json({ success: false, error: "User not found." })
         }
 
-        const gotDoc = await Doc.findById(docId)
+        const getAllDocs = await User.findById(userId).populate("documents").select("-password")
 
-        if (!gotDoc) {
-            return res.status(404).json({ success: false, error: "Document is not found." })
+        if (!getAllDocs) {
+            return res.status(404).json({ success: false, error: "Documents are not found." })
         }
-        return res.status(200).json({ success: true, message: "Document updated", docData: gotDoc })
+        return res.status(200).json({ success: true, message: "", docData: getAllDocs })
 
     } catch (error) {
         
