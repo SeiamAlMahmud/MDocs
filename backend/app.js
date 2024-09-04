@@ -7,6 +7,7 @@ require('dotenv').config()
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const uploadRouter = require("./routes/uploadRouter")
+const docRouter = require("./routes/DocRouter")
 
 
 const cors = require('cors');
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/uploads', uploadRouter);
+app.use('/docbox', docRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

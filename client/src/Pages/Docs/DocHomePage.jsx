@@ -6,6 +6,9 @@ import { useDocContext } from '../../Context/DocContext';
 import { useNavigate } from 'react-router-dom';
 import CreatePopUp from '../../Components/Docs/CreatePopUp';
 import DeletePopUp from './DeletePopUp';
+import { fetchingURL } from '../../FetchURL/fetchingURL';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 const DocHomePage = () => {
   document.title = `Doc File`;
@@ -20,6 +23,9 @@ const DocHomePage = () => {
   const popupDeleteRef = useRef(null);
   const navigate = useNavigate()
 
+
+  const [titleState, setTitleState] = useState("")
+  console.log(titleState)
 
 
   const handleOpenPopup = () => {
@@ -42,12 +48,38 @@ const DocHomePage = () => {
     }
   };
 
-  const closeCancelButtonHandler = ()=> {
+  const closeCancelButtonHandler = () => {
     // console.log("first")
     setIsDeletePopupOpen(false);
 
   }
 
+  const createNewDocHandler = async () => {
+
+    try {
+
+      if (titleState == "") {
+        return toast.error("Please fill title field.")
+      }
+
+      const response = await axios.post(`${fetchingURL}/docbox/createDoc`, {
+        docName: titleState
+      }, { withCredentials: true });
+
+      if (response?.data?.success) {
+        // console.log(response?.data)
+        toast.success(response.data?.message);
+        navigate(`/createdoc/${response.data?.docId}`)
+      }
+    } catch (error) {
+      if (!error?.response?.data?.success) {
+        toast.success(error?.response?.data?.error || "An unexpected error occurred");
+      }
+      console.log(error.message || 'An unexpected error occurred');
+    }
+
+    // console.log(fetchingURL, titleState.length)
+  }
   return (
     <>
       {token && <div >
@@ -61,15 +93,22 @@ const DocHomePage = () => {
 
         {/* ############## Doc List Section ##########  */}
         <div className='allDoc  px-5 sm:px-10 md:px-20 mt-4'>
-          <DocList handleDeleteOpenPopup={handleDeleteOpenPopup}  />
-          <DocList handleDeleteOpenPopup={handleDeleteOpenPopup}  />
+          <DocList handleDeleteOpenPopup={handleDeleteOpenPopup} />
+          <DocList handleDeleteOpenPopup={handleDeleteOpenPopup} />
         </div>
       </div>
       }
-
+      {/* ############## New Document Create #################   */}
       <CreatePopUp
         popupCreateRef={popupCreateRef}
-        isCreatePopupOpen={isCreatePopupOpen} handleCreateClosePopup={handleCreateClosePopup} />
+        isCreatePopupOpen={isCreatePopupOpen} handleCreateClosePopup={handleCreateClosePopup}
+        titleState={titleState}
+        setTitleState={setTitleState}
+        createNewDocHandler={createNewDocHandler}
+      />
+
+      {/* ##############  Document Delete #################   */}
+
 
       <DeletePopUp
         isDeletePopupOpen={isDeletePopupOpen}

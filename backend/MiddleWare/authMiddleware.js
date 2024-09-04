@@ -20,6 +20,7 @@ const authMiddleware = (req, res, next) => {
             return res.status(401).json({ success: false, error: 'Session expired. Please log in again.' });
         }
         req.userId = decoded.userId;
+        console.log(req.userId)
         next();
     } catch (err) {
         console.error('JWT Error:', err); // Log the error

@@ -5,6 +5,7 @@ import Avatar from 'react-avatar';
 import { useDocContext } from '../../Context/DocContext';
 import { RxCrossCircled } from "react-icons/rx"
 import { useNavigate } from 'react-router-dom';
+import NavbarPopup from './NavbarPopup';
 
 
 const Navbar = () => {
@@ -23,7 +24,7 @@ const Navbar = () => {
                     <i onClick={() => setToggle(prev => !prev)} className={`absolute text-white  cursor-pointer top-2 transition-transform duration-300 ease-in-out text-3xl ${toggle ? "left-8 transform -translate-x-[90%]" : "right-1 translate-x-0"}`}>{toggle ? <RxCrossCircled className='text-white bg-black rounded-full hover:rotate-180 transition-all duration-300' /> : <RiSearchLine />}</i>
                     <input type="text" className={` pl-10 h-11 border-none outline-none text-xl rounded-md transition-transform duration-100 ease-in ${toggle ? "w-full " : "bg-transparent w-0 opacity-0"}`} placeholder='Search here...' />
                 </div>
-                {token ? <img src="https://avatar.iran.liara.run/public" className='h-12' /> : <button onClick={() => navigate('/login')} className='login__btn'>Login</button>}
+                {token ? <NavbarPopup /> : <button onClick={() => navigate('/login')} className='login__btn'>Login</button>}
             </div>
         </div>
     </>

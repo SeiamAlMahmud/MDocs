@@ -26,6 +26,8 @@ const storage = multer.diskStorage({
 
 
 router.get("/", upload.single('file') ,fileUploadController)
+
+
 module.exports = router
 
 
