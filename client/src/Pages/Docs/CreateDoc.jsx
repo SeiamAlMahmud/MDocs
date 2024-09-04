@@ -5,6 +5,7 @@ import { fetchingURL } from '../../FetchURL/fetchingURL';
 import { useDocContext } from '../../Context/DocContext';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
+import toast from 'react-hot-toast';
 
 const CreateDoc = () => {
     document.title = `Create new Doc`
@@ -15,19 +16,20 @@ const CreateDoc = () => {
     const { docsId } = useParams()
     const editor = useRef(null);
     const [content, setContent] = useState('')
+    const [title, settitle] = useState('')
 
 
 
-    console.log(content)
+    // console.log(content)
 
     const updateDoc = async (newContent) => {
-        console.log(fetchingURL)
+        // console.log(fetchingURL)
         try {
             const response = await axios.post(`${fetchingURL}/docbox/updateDoc`, {
                 content: newContent,
                 docId: docsId
             }, { withCredentials: true })
-            console.log(response?.data)
+            // console.log(response?.data)
 
             if (response?.data?.success) {
                 if (!error?.response?.data?.success) {
@@ -48,10 +50,10 @@ const CreateDoc = () => {
                 docId: docsId
             }, { withCredentials: true })
 
-            console.log(response.data)
+            // console.log(response.data)
             if (response.data?.success) {
-                setContent("");
                 setContent(response.data?.docData?.content);
+                settitle(response.data?.docData?.title)
             }
         } catch (error) {
             if (response?.data?.success) {
@@ -69,19 +71,53 @@ const CreateDoc = () => {
         []
     );
 
-
-
     useEffect(() => {
-        if ( docsId) {
+        if (docsId) {
             fetchContent();
         }
     }, []);
 
+
+    const updateTitle = async (e) => {
+        e.preventDefault();
+        try {
+            // Replace with your actual fetching logic, like using fetch() or axios
+            const response = await axios.post(`${fetchingURL}/docbox/updateTitle`, {
+                docId: docsId,
+                title: title
+            }, { withCredentials: true })
+
+            // console.log(response.data)
+            if (response.data?.success) {
+                settitle(response.data?.docData?.title)
+                toast.success("New title updated");
+            }
+        } catch (error) {
+            if (response?.data?.success) {
+                if (!error?.response?.data?.success) {
+                    toast.success(error?.response?.data?.error || "An unexpected error occurred");
+                }
+                console.log(error.message || 'An unexpected error occurred');
+            }
+        }
+    };
+
     return (
         <div>
             {
-                token ? (<div className='mx-2 my-3 sm:mx-5 sm:mt-6'>
-
+                token ? (<div className='mx-2 my-3 sm:mx-5 sm:mt-6 '>
+                    <form onSubmit={updateTitle}>
+                    <div className='mb-4  w-full flex justify-center mx-auto px-4 border-[3px] rounded-lg py-1 items-center gap-2'>
+                        <label htmlFor="title" className=''>Title</label>
+                        <input type="text" id='title' className=' w-full py-2 my-1 border rounded-md text-lg'
+                            value={title}
+                            onChange={(e) => settitle(e.target.value)}
+                            />
+                        <button
+                            type='submit'
+                            className='border border-black py-1 px-2 rounded-lg bg-[#1a1e2c] hover:bg-[#14286d] transition-all text-white text-lg md:text-xl'>Save</button>
+                    </div>
+                    </form>
                     <JoditEditor
                         ref={editor}
                         value={content}

@@ -25,7 +25,7 @@ const DocHomePage = () => {
 
 
   const [titleState, setTitleState] = useState("")
-  console.log(titleState)
+  // console.log(titleState)
 
 
   const handleOpenPopup = () => {
