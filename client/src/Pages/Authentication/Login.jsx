@@ -104,7 +104,7 @@ const Login = () => {
 
   return (
     <>
-      {isVisible ? (<div className="flex items-center justify-center flex-col   w-screen bg-[#F0F0F0]">
+      {isVisible && !token ? (<div className="flex items-center justify-center flex-col   w-screen bg-[#F0F0F0]">
         <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
           <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
           <div className='flex gap-3 items-center justify-start mt-10'>

@@ -52,7 +52,7 @@ const updateExistingDoc = async (req, res) => {
         if (!updatedDoc) {
             return res.status(404).json({ success: false, error: "Document not found" })
         }
-        
+
         return res.status(200).json({ success: true, message: "Document updated", docData: updatedDoc })
 
     } catch (error) {
@@ -62,4 +62,25 @@ const updateExistingDoc = async (req, res) => {
 
 }
 
-module.exports = { createNewDoc, updateExistingDoc }
+const getDoc = async (req, res) => {
+
+    const { docId } = req.body;
+
+    try {
+        if (!docId) {
+            return res.status(404).json({ success: false, error: "Document Reference invalid" })
+        }
+
+        const gotDoc = await Doc.findById(docId)
+
+        if (!gotDoc) {
+            return res.status(404).json({ success: false, error: "Document is not found." })
+        }
+        return res.status(200).json({ success: true, message: "Document updated", docData: gotDoc })
+
+    } catch (error) {
+        
+    }
+}
+
+module.exports = { createNewDoc, updateExistingDoc, getDoc }

@@ -44,19 +44,22 @@ const CreateDoc = () => {
     const fetchContent = async () => {
         try {
             // Replace with your actual fetching logic, like using fetch() or axios
-            const response = await fetch(`your-api-endpoint/${docsId}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            const data = await response.json();
+            const response = await axios.post(`${fetchingURL}/docbox/getDoc`, {
+                docId: docsId
+            }, { withCredentials: true })
 
-            // Assuming data.content contains the editor's content
-            setContent(data.content);
+            console.log(response.data)
+            if (response.data?.success) {
+                setContent("");
+                setContent(response.data?.docData?.content);
+            }
         } catch (error) {
-            console.error('Failed to fetch content:', error);
+            if (response?.data?.success) {
+                if (!error?.response?.data?.success) {
+                    toast.success(error?.response?.data?.error || "An unexpected error occurred");
+                }
+                console.log(error.message || 'An unexpected error occurred');
+            }
         }
     };
 
@@ -68,11 +71,11 @@ const CreateDoc = () => {
 
 
 
-    // useEffect(() => {
-    //     if (token && docsId) {
-    //         fetchContent();
-    //     }
-    // }, [token, docsId]);
+    useEffect(() => {
+        if ( docsId) {
+            fetchContent();
+        }
+    }, []);
 
     return (
         <div>
