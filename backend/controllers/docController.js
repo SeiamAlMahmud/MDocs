@@ -36,4 +36,30 @@ const createNewDoc = async (req, res) => {
     }
 }
 
-module.exports = { createNewDoc }
+const updateExistingDoc = async (req, res) => {
+
+    try {
+
+        const { content, docId } = req.body;
+        const userId = req.userId;
+
+        const updatedDoc = await Doc.findByIdAndUpdate(
+            docId,
+            { content },
+            { new: true }
+        ).select("updatedAt content")
+
+        if (!updatedDoc) {
+            return res.status(404).json({ success: false, error: "Document not found" })
+        }
+        
+        return res.status(200).json({ success: true, message: "Document updated", docData: updatedDoc })
+
+    } catch (error) {
+        return res.status(500).json({ success: false, error: "Internal Server Error" })
+
+    }
+
+}
+
+module.exports = { createNewDoc, updateExistingDoc }
