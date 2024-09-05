@@ -164,7 +164,7 @@ const CreateDoc = () => {
                     <form onSubmit={updateTitle}>
                         <div className='mb-4  w-full flex justify-center mx-auto px-4 border-[3px] rounded-lg py-1 items-center gap-2'>
                             <label htmlFor="title" className=''>Title</label>
-                            <input type="text" id='title' className=' w-full py-2 my-1 border rounded-md text-lg'
+                            <input type="text" id='title' className=' w-full py-2 my-1 border rounded-md text-lg pl-4'
                                 value={title}
                                 onChange={(e) => settitle(e.target.value)}
                             />

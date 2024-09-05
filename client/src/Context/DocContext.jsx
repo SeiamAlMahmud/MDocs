@@ -70,7 +70,7 @@ const DocContext = ({ children }) => {
             setfetchData(response.data?.docData?.documents.reverse())
           }
         } catch (error) {
-          if (response?.data?.success) {
+          if (error?.response) {
             if (!error?.response?.data?.success) {
               toast.success(error?.response?.data?.error || "An unexpected error occurred");
             }

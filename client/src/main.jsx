@@ -15,6 +15,7 @@ import HomePage from './Pages/HomePage/HomePage.jsx';
 import DocHomePage from './Pages/Docs/DocHomePage.jsx';
 import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 import CreateDoc from './Pages/Docs/CreateDoc.jsx';
+import DemoDoc from './Pages/Docs/DemoDoc.jsx';
 
 
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
             <CreateDoc />
           </PrivateRoute>
         )
+      },
+      {
+        path: "/demoDoc",
+        element: <DemoDoc />
       }
     ],
   },
