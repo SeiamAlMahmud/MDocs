@@ -47,7 +47,7 @@ const updateExistingDoc = async (req, res) => {
             docId,
             { content },
             { new: true }
-        ).select("updatedAt content")
+        ).select("updatedAt content createdAt")
 
         if (!updatedDoc) {
             return res.status(404).json({ success: false, error: "Document not found" })
@@ -167,4 +167,34 @@ const DeleteDoc = async (req, res) => {
 
 }
 
-module.exports = { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser,DeleteDoc }
+const updateExistingStatus = async (req, res) => {
+
+    try {
+
+        const { isPublish, docId } = req.body;
+        const userId = req.userId;
+
+        if (!isPublish || !docId ) {
+            return res.status(404).json({ success: false, error: "Document not found" })
+        }
+
+        const updatedDoc = await Doc.findByIdAndUpdate(
+            docId,
+            { isPublish },
+            { new: true }
+        ).select("updatedAt createdAt isPublish")
+
+        if (!updatedDoc) {
+            return res.status(404).json({ success: false, error: "Document not found" })
+        }
+
+        return res.status(200).json({ success: true, message: "Status updated", docData: updatedDoc })
+
+    } catch (error) {
+        return res.status(500).json({ success: false, error: "Internal Server Error" })
+
+    }
+
+}
+
+module.exports = { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser,DeleteDoc, updateExistingStatus }

@@ -60,6 +60,29 @@ const DocContext = ({ children }) => {
         }
     };
 
+    const fetchDocs = async () => {
+        try {
+      
+          const response = await axios.post(`${fetchingURL}/docbox/getDocViaUser`, {}, { withCredentials: true })
+    
+          // console.log(response.data)
+          if (response.data?.success) {
+            setfetchData(response.data?.docData?.documents.reverse())
+          }
+        } catch (error) {
+          if (response?.data?.success) {
+            if (!error?.response?.data?.success) {
+              toast.success(error?.response?.data?.error || "An unexpected error occurred");
+            }
+            console.log(error.message || 'An unexpected error occurred');
+          }
+        }
+      };
+
+      useEffect(() => {
+        fetchDocs()
+      }, [])
+
 
 
     const Contextvalue = { token, setToken, logout, count, setCount, isVisible, setIsVisible, resUsername, setResUsername, fetchData, setfetchData }

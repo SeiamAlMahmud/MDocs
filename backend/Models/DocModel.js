@@ -5,7 +5,7 @@ const docSchema = mongoose.Schema({
     title: { type: String },
     uploadBy: { type: String },
     content: { type: String, },
-    isPublish: { type: Boolean,default: false },
+    isPublish: { type: String,default: "unpublish" },
 
 }, { timestamps: true })
 

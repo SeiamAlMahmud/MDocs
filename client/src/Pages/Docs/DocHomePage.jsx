@@ -70,30 +70,6 @@ const DocHomePage = () => {
   }
 
 
-  const fetchDocs = async () => {
-    try {
-      // Replace with your actual fetching logic, like using fetch() or axios
-      const response = await axios.post(`${fetchingURL}/docbox/getDocViaUser`, {}, { withCredentials: true })
-
-      // console.log(response.data)
-      if (response.data?.success) {
-        setfetchData(response.data?.docData?.documents.reverse())
-      }
-    } catch (error) {
-      if (response?.data?.success) {
-        if (!error?.response?.data?.success) {
-          toast.success(error?.response?.data?.error || "An unexpected error occurred");
-        }
-        console.log(error.message || 'An unexpected error occurred');
-      }
-    }
-  };
-  
-  useEffect(() => {
-    fetchDocs()
-  }, [])
-  // console.log(fetchData)
-
 
 
   return (
