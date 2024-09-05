@@ -4,7 +4,6 @@ import { fetchingURL } from '../FetchURL/fetchingURL';
 import toast from 'react-hot-toast';
 
 
-
 const webContext = createContext()
 export const useDocContext = () => {
     return useContext(webContext)
@@ -15,15 +14,11 @@ const DocContext = ({ children }) => {
     const [count, setCount] = useState(0)
     const [isVisible, setIsVisible] = useState(false);
     const [resUsername, setResUsername] = useState("A B C")
-  const [fetchData, setfetchData] = useState([]);
-
-
-
-
+    const [fetchData, setfetchData] = useState([]);
 
     useEffect(() => {
         checkLoginStatus();
-   
+
     }, [])
     // console.log(count)
 
@@ -51,17 +46,23 @@ const DocContext = ({ children }) => {
 
     const logout = async () => {
         try {
-            await axios.post('/logout', {}, { withCredentials: true });
+            const response = await axios.post(`${fetchingURL}/users/logout`, {}, { withCredentials: true });
             console.log('User logged out');
-            // Redirect to login page or update UI
+
+            if (response.data?.success) {
+                setToken(false)
+                toast.success(response.data?.message);
+                
+            }
+
         } catch (error) {
             console.error('Logout failed:', error.response.data);
         }
     };
 
-  
 
-    const Contextvalue = { token, setToken, logout, count, setCount, isVisible, setIsVisible, resUsername, setResUsername,fetchData, setfetchData }
+
+    const Contextvalue = { token, setToken, logout, count, setCount, isVisible, setIsVisible, resUsername, setResUsername, fetchData, setfetchData }
     return (
         <>
             <webContext.Provider value={Contextvalue}>

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { FaUser } from "react-icons/fa"
+import { TbLogout } from "react-icons/tb";
+import { useDocContext } from '../../Context/DocContext';
 
 
 
@@ -9,8 +11,8 @@ const NavbarPopup = () => {
   const [isnavPopupRef, setIsNavPopupRef] = useState(false);
   const location = useLocation()
   const navbarPopRef = useRef()
-// console.log("first",navbarPopRef?.current.id)
   const pathname = location.pathname;
+  const {logout} = useDocContext()
 
   
   document.addEventListener("click", (e)=>{
@@ -33,8 +35,12 @@ const NavbarPopup = () => {
    { isnavPopupRef &&  (<div  className=' border-[rgba(0,0,0,0.14)] border rounded-lg w-[45vw] sm:w-[30vw] md:w-[15vw] absolute top-[142%] right-0 bg-[#fff] pt-1'>
         <ul className='flex flex-col items-center w-full'>
           <li onClick={() => navigate("/doc")} className='flex justify-around w-full items-center text-lg py-1 cursor-pointer  hover:bg-[#80808030] transition-all border-b-2'><i><FaUser /></i><span>My Docs</span> </li>
+          
+          <li onClick={(e) => {
+            logout()
+            navigate("/")
+            }} className='flex justify-around w-full items-center text-lg py-1 cursor-pointer  hover:bg-[#80808030] transition-all border-b-2'><i><TbLogout /></i><span>Log Out</span> </li>
 
-          {/* <li onClick={()=> navigate("/doc")} className='flex justify-around w-full items-center text-lg py-1   hover:bg-[#80808030] transition-all'><i><FaUser /></i><span>My Docs</span> </li> */}
 
         </ul>
       </div>)}

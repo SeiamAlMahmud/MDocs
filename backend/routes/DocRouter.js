@@ -10,6 +10,7 @@ router.post("/getDoc",authMiddleware, getDoc)
 router.post("/updateTitle",authMiddleware, updateExistingTitle)
 router.post("/getDocViaUser",authMiddleware, getDocsViaUser)
 router.post("/deleteDoc",authMiddleware, DeleteDoc)
+router.post("/deleteDoc",authMiddleware, DeleteDoc)
 
 
 
