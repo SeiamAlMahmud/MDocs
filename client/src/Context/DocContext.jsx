@@ -16,6 +16,11 @@ const DocContext = ({ children }) => {
     const [resUsername, setResUsername] = useState("A B C")
     const [fetchData, setfetchData] = useState([]);
 
+      // Axios global defaults
+//   axios.defaults.baseURL = 'https://api.backend.com'; // Your backend API
+  axios.defaults.withCredentials = true;              // Send credentials with every request
+
+
     useEffect(() => {
         checkLoginStatus();
 
