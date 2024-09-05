@@ -15,7 +15,7 @@ const DocHomePage = () => {
   document.title = `Doc File`;
   ScrollToTop()
 
-  const { token, fetchData, setfetchData} = useDocContext()
+  const { token, fetchData, setfetchData, fetchDocs} = useDocContext()
 
 
   const [isCreatePopupOpen, setIsCreatePopupOpen] = useState(false);
@@ -42,7 +42,8 @@ const DocHomePage = () => {
  
 
 
-  const createNewDocHandler = async () => {
+  const createNewDocHandler = async (e) => {
+    e.preventDefault();
 
     try {
 
@@ -58,6 +59,7 @@ const DocHomePage = () => {
         // console.log(response?.data)
         toast.success(response.data?.message);
         navigate(`/createdoc/${response.data?.docId}`)
+        fetchDocs()
       }
     } catch (error) {
       if (!error?.response?.data?.success) {

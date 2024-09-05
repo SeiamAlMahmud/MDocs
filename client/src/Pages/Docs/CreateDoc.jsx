@@ -96,6 +96,7 @@ const CreateDoc = () => {
             if (response.data?.success) {
                 settitle(response.data?.docData?.title)
                 toast.success("New title updated");
+                fetchContent()
             }
         } catch (error) {
             if (response?.data?.success) {

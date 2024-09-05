@@ -85,7 +85,7 @@ const DocContext = ({ children }) => {
 
 
 
-    const Contextvalue = { token, setToken, logout, count, setCount, isVisible, setIsVisible, resUsername, setResUsername, fetchData, setfetchData }
+    const Contextvalue = { token, setToken, logout, count, setCount, isVisible, setIsVisible, resUsername, setResUsername, fetchData, setfetchData,fetchDocs }
     return (
         <>
             <webContext.Provider value={Contextvalue}>
