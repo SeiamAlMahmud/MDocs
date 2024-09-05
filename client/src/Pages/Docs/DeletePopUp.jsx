@@ -2,12 +2,60 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MdOutlineTitle } from "react-icons/md"
 import { FaFileCircleXmark } from "react-icons/fa6";
+import { fetchingURL } from '../../FetchURL/fetchingURL';
+import axios from 'axios';
+import { useDocContext } from '../../Context/DocContext';
+import toast from 'react-hot-toast';
 
 
 
-const DeletePopUp = ({ popupDeleteRef, isDeletePopupOpen, handleDeleteClosePopup, closeCancelButtonHandler }) => {
+const DeletePopUp = ({ popupDeleteRef, isDeletePopupOpen, handleDeleteClosePopup, closeCancelButtonHandler, docData }) => {
 
     const navigate = useNavigate()
+    const {fetchData, setfetchData} = useDocContext()
+
+
+    const fetchDocs = async () => {
+        try {
+          // Replace with your actual fetching logic, like using fetch() or axios
+          const response = await axios.post(`${fetchingURL}/docbox/getDocViaUser`, {}, { withCredentials: true })
+    
+          // console.log(response.data)
+          if (response.data?.success) {
+            setfetchData(response.data?.docData?.documents.reverse())
+          }
+        } catch (error) {
+          if (response?.data?.success) {
+            if (!error?.response?.data?.success) {
+              toast.success(error?.response?.data?.error || "An unexpected error occurred");
+            }
+            console.log(error.message || 'An unexpected error occurred');
+          }
+        }
+      };
+
+      const deleteDoc = async () => {
+        // console.log(docData)
+        try {
+            // Replace with your actual fetching logic, like using fetch() or axios
+            const response = await axios.post(`${fetchingURL}/docbox/deleteDoc`, {docId: docData._id}, { withCredentials: true })
+      
+            // console.log(response.data)
+            if (response.data?.success) {
+                console.log(response.data)
+                toast.success(response.data?.message)
+                closeCancelButtonHandler()
+                fetchDocs()
+            }
+          } catch (error) {
+            if (response?.data?.success) {
+              if (!error?.response?.data?.success) {
+                toast.success(error?.response?.data?.error || "An unexpected error occurred");
+              }
+              console.log(error.message || 'An unexpected error occurred');
+            }
+          }
+      }
 
     return (
         <>
@@ -20,13 +68,13 @@ const DeletePopUp = ({ popupDeleteRef, isDeletePopupOpen, handleDeleteClosePopup
                             <i className='sm:text-9xl text-8xl text-[red]'><FaFileCircleXmark /> </i>
                             <div className='flex flex-col'>
                                 <h4 className='text-xl  md:text-3xl'>Do you want to delete this Document ?</h4>
-                                <p className='text-lg font-bold text-[#808080] mt-2 ml-1'> fff</p>
+                                <p className='text-lg font-bold text-[#808080] mt-2 ml-1'> {docData.title}</p>
                             </div>
 
                         </div>
 
                         <div className='flex items-center gap-2 justify-between w-full'>
-                            <button onClick={() => navigate("/createdoc/dfgdsf")} className='border-none outline-none w-1/2 text-center bg-[#1a1e2c] text-white capitalize py-2 rounded-xl mt-6 hover:bg-[red]'>Delete</button>
+                            <button onClick={deleteDoc} className='border-none outline-none w-1/2 text-center bg-[#1a1e2c] text-white capitalize py-2 rounded-xl mt-6 hover:bg-[red]'>Delete</button>
                             <button onClick={closeCancelButtonHandler} className='border-none outline-none w-1/2 text-center bg-[#1a202c] text-white capitalize py-2 rounded-xl mt-6 hover:bg-[#1d335d]'>Cancel</button>
                         </div>
                     </div>

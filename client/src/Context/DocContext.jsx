@@ -15,6 +15,8 @@ const DocContext = ({ children }) => {
     const [count, setCount] = useState(0)
     const [isVisible, setIsVisible] = useState(false);
     const [resUsername, setResUsername] = useState("A B C")
+  const [fetchData, setfetchData] = useState([]);
+
 
 
 
@@ -57,7 +59,9 @@ const DocContext = ({ children }) => {
         }
     };
 
-    const Contextvalue = { token, setToken, logout, count, setCount, isVisible, setIsVisible, resUsername, setResUsername }
+  
+
+    const Contextvalue = { token, setToken, logout, count, setCount, isVisible, setIsVisible, resUsername, setResUsername,fetchData, setfetchData }
     return (
         <>
             <webContext.Provider value={Contextvalue}>

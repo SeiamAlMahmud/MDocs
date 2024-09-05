@@ -15,14 +15,11 @@ const DocHomePage = () => {
   document.title = `Doc File`;
   ScrollToTop()
 
-  const { token } = useDocContext()
+  const { token, fetchData, setfetchData} = useDocContext()
 
-  const [fetchData, setfetchData] = useState([]);
 
   const [isCreatePopupOpen, setIsCreatePopupOpen] = useState(false);
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const popupCreateRef = useRef(null);
-  const popupDeleteRef = useRef(null);
   const navigate = useNavigate()
 
 
@@ -34,9 +31,7 @@ const DocHomePage = () => {
     setIsCreatePopupOpen(true);
   };
 
-  const handleDeleteOpenPopup = () => {
-    setIsDeletePopupOpen(true);
-  };
+
 
   const handleCreateClosePopup = (event) => {
     if (popupCreateRef.current && !popupCreateRef.current.contains(event.target)) {
@@ -44,17 +39,8 @@ const DocHomePage = () => {
     }
   };
 
-  const handleDeleteClosePopup = (event) => {
-    if (popupDeleteRef.current && !popupDeleteRef.current.contains(event.target)) {
-      setIsDeletePopupOpen(false);
-    }
-  };
+ 
 
-  const closeCancelButtonHandler = () => {
-    // console.log("first")
-    setIsDeletePopupOpen(false);
-
-  }
 
   const createNewDocHandler = async () => {
 
@@ -122,13 +108,15 @@ const DocHomePage = () => {
         </div>
 
         {/* ############## Doc List Section ##########  */}
-        <div className='allDoc  px-5 sm:px-10 md:px-20 mt-4'>
+        <div className='allDoc  px-5 sm:px-10 md:px-20 mt-4  relative'>
+          <h2 className={`text-center text-2xl absolute top-8 left-0 right-0 ${fetchData.length == 0 ? "block" : "hidden"}`}>You have no documents. Let's Create a new Document.</h2>
+
       { fetchData.length !== 0 ? (  <div>
           {
             fetchData.map((docData,idx)=> {
               return (
                 
-                <DocList key={docData._id} handleDeleteOpenPopup={handleDeleteOpenPopup} docData={docData} />
+                <DocList key={docData._id}  docData={docData} />
               )
             })
           }
@@ -149,12 +137,7 @@ const DocHomePage = () => {
       {/* ##############  Document Delete #################   */}
 
 
-      <DeletePopUp
-        isDeletePopupOpen={isDeletePopupOpen}
-        popupDeleteRef={popupDeleteRef}
-        handleDeleteClosePopup={handleDeleteClosePopup}
-        closeCancelButtonHandler={closeCancelButtonHandler}
-      />
+
 
     </>
   )

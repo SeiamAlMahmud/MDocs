@@ -46,7 +46,7 @@ const Login = () => {
       if (count == 0) {
         setIsVisible(true);
       }
-    }, 1800);
+    }, 2400);
     setCount(prev => prev + 1)
 
     return () => clearTimeout(timer);

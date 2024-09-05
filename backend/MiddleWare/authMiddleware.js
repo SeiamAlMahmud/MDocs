@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
+const User = require('../Models/userModel');
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
     // console.log('Auth Middleware Triggered');
 
     const token = req.cookies.jwt;
@@ -19,6 +20,11 @@ const authMiddleware = (req, res, next) => {
             res.clearCookie('jwt');
             return res.status(401).json({ success: false, error: 'Session expired. Please log in again.' });
         }
+        // const user = await User.findById(decoded.userId)
+        // console.log(user)
+        // if (!user) {
+        //     return res.status(401).json({ success: false, error: 'Not authenticated' });
+        // }
         req.userId = decoded.userId;
         console.log(req.userId)
         next();

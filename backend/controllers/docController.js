@@ -136,4 +136,35 @@ const getDocsViaUser = async (req, res) => {
     }
 }
 
-module.exports = { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser }
+const DeleteDoc = async (req, res) => {
+
+    try {
+
+        const {docId } = req.body;
+        const userId = req.userId;
+
+        if (!docId ) {
+            return res.status(404).json({ success: false, error: "Document not found" })
+        }
+
+        const updatedDoc = await Doc.findByIdAndDelete(docId).select("updatedAt title")
+
+        if (!updatedDoc) {
+            return res.status(404).json({ success: false, error: "Document not found" })
+        }
+
+        await User.updateMany(
+            { documents: docId },          // Find users where documents array contains docId
+            { $pull: { documents: docId } } // Remove docId from documents array
+        );
+
+        return res.status(200).json({ success: true, message: "Document Deleted Successfully"})
+
+    } catch (error) {
+        return res.status(500).json({ success: false, error: "Internal Server Error" })
+
+    }
+
+}
+
+module.exports = { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser,DeleteDoc }
