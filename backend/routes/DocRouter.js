@@ -1,5 +1,5 @@
 const express = require("express")
-const { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser, DeleteDoc, updateExistingStatus } = require("../controllers/docController")
+const { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser, DeleteDoc, updateExistingStatus, getForPublic,  } = require("../controllers/docController")
 const authMiddleware = require("../MiddleWare/authMiddleware")
 
 const router = express.Router()
@@ -12,7 +12,7 @@ router.post("/getDocViaUser",authMiddleware, getDocsViaUser)
 router.post("/deleteDoc",authMiddleware, DeleteDoc)
 router.post("/deleteDoc",authMiddleware, DeleteDoc)
 router.post("/updateStatus",authMiddleware, updateExistingStatus)
-
+router.post("/forpublic", getForPublic)
 
 
 

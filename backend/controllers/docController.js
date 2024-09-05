@@ -20,7 +20,7 @@ const createNewDoc = async (req, res) => {
         let newDoc = await new Doc({
             uploadBy: user.username,
             userId,
-            title: docName
+            title: docName,
         })
 
         if (newDoc) {
@@ -79,7 +79,7 @@ const getDoc = async (req, res) => {
         return res.status(200).json({ success: true, message: "Document updated", docData: gotDoc })
 
     } catch (error) {
-        
+
     }
 }
 
@@ -92,7 +92,7 @@ const updateExistingTitle = async (req, res) => {
         const { title, docId } = req.body;
         const userId = req.userId;
 
-        if (!title || !docId ) {
+        if (!title || !docId) {
             return res.status(404).json({ success: false, error: "Document not found" })
         }
 
@@ -132,7 +132,7 @@ const getDocsViaUser = async (req, res) => {
         return res.status(200).json({ success: true, message: "", docData: getAllDocs })
 
     } catch (error) {
-        
+
     }
 }
 
@@ -140,10 +140,10 @@ const DeleteDoc = async (req, res) => {
 
     try {
 
-        const {docId } = req.body;
+        const { docId } = req.body;
         const userId = req.userId;
 
-        if (!docId ) {
+        if (!docId) {
             return res.status(404).json({ success: false, error: "Document not found" })
         }
 
@@ -158,7 +158,7 @@ const DeleteDoc = async (req, res) => {
             { $pull: { documents: docId } } // Remove docId from documents array
         );
 
-        return res.status(200).json({ success: true, message: "Document Deleted Successfully"})
+        return res.status(200).json({ success: true, message: "Document Deleted Successfully" })
 
     } catch (error) {
         return res.status(500).json({ success: false, error: "Internal Server Error" })
@@ -174,7 +174,7 @@ const updateExistingStatus = async (req, res) => {
         const { isPublish, docId } = req.body;
         const userId = req.userId;
 
-        if (!isPublish || !docId ) {
+        if (!isPublish || !docId) {
             return res.status(404).json({ success: false, error: "Document not found" })
         }
 
@@ -197,4 +197,28 @@ const updateExistingStatus = async (req, res) => {
 
 }
 
-module.exports = { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser,DeleteDoc, updateExistingStatus }
+
+const getForPublic = async (req, res) => {
+    const {docId} = req.body
+    try {
+        if (!docId) {
+            return res.status(404).json({ success: false, error: "Document Reference invalid" })
+        }
+
+        const gotDoc = await Doc.findById(docId)
+
+        if (!gotDoc) {
+            return res.status(200).json({ success: false, error: "Document is not found." })
+        }
+        if (gotDoc.isPublish == "unpublish") {
+            return res.status(401).json({ success: false, error: "Document has restricted by owner of this Document." })
+        }else {
+            return res.status(200).json({ success: true, message: "Document send Frontend successfully", docData: gotDoc }) 
+        }
+
+    } catch (error) {
+
+    }
+}
+
+module.exports = { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser, DeleteDoc, updateExistingStatus, getForPublic }

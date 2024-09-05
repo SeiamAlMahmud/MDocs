@@ -16,6 +16,7 @@ import DocHomePage from './Pages/Docs/DocHomePage.jsx';
 import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 import CreateDoc from './Pages/Docs/CreateDoc.jsx';
 import DemoDoc from './Pages/Docs/DemoDoc.jsx';
+import ViewDoc from "./Pages/Docs/ViewDoc.jsx"
 
 
 
@@ -56,6 +57,11 @@ const router = createBrowserRouter([
       {
         path: "/demoDoc",
         element: <DemoDoc />
+      },
+
+      {
+        path: "/view/:docsId",
+        element: <ViewDoc />
       }
     ],
   },

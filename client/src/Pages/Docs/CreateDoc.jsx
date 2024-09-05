@@ -99,12 +99,12 @@ const CreateDoc = () => {
                 fetchContent()
             }
         } catch (error) {
-            if (response?.data?.success) {
+           
                 if (!error?.response?.data?.success) {
                     toast.success(error?.response?.data?.error || "An unexpected error occurred");
                 }
                 console.log(error.message || 'An unexpected error occurred');
-            }
+            
         }
     };
 

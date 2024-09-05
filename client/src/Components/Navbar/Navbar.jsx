@@ -13,7 +13,7 @@ const Navbar = () => {
     const { token, resUsername } = useDocContext()
     const navigate = useNavigate()
     const location = useLocation()
-    console.log(location.pathname)
+    // console.log(location.pathname)
     return (<>
         <div className={`navbar z-50 flex  items-center px-3 sm:px-10 md:px h-20 justify-between ${location.pathname == "/" ? "bg-[#02124f]" : "bg-[#fcc419]"}  border-b-8 ${location.pathname == "/" ? "text-white" : "text-black"} border-black backdrop-blur-sm`}>
             <div className='flex gap-3 items-center justify-start'>

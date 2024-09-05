@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { FaUser } from "react-icons/fa"
 import { TbLogout } from "react-icons/tb";
 import { useDocContext } from '../../Context/DocContext';
+import navPhoto from "../../assets/public.png"
 
 
 
@@ -12,6 +13,9 @@ const NavbarPopup = () => {
   const location = useLocation()
   const navbarPopRef = useRef()
   const pathname = location.pathname;
+  // const xyz = "https://avatar.iran.liara.run/public" 
+  // console.log(xyz)
+  const navbarImage =  navPhoto
   const {logout} = useDocContext()
 
   
@@ -30,7 +34,7 @@ const NavbarPopup = () => {
     <div className='relative'>
       <img ref={navbarPopRef} id='navPopup'
       onClick={()=> setIsNavPopupRef(prev => !prev)}
-      src="https://avatar.iran.liara.run/public" 
+      src={navbarImage} 
       alt={"Logo"}
       className='h-12 text-white' />
 
