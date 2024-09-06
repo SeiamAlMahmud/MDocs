@@ -12,33 +12,20 @@ import toast from 'react-hot-toast';
 const DeletePopUp = ({ popupDeleteRef, isDeletePopupOpen, handleDeleteClosePopup, closeCancelButtonHandler, docData }) => {
 
     const navigate = useNavigate()
-    const {fetchData, setfetchData} = useDocContext()
+    const {fetchDocs, api} = useDocContext()
 
 
-    const fetchDocs = async () => {
-        try {
-          // Replace with your actual fetching logic, like using fetch() or axios
-          const response = await axios.post(`${fetchingURL}/docbox/getDocViaUser`, {}, { withCredentials: true })
-    
-          // console.log(response.data)
-          if (response.data?.success) {
-            setfetchData(response.data?.docData?.documents.reverse())
-          }
-        } catch (error) {
-          if (response?.data?.success) {
-            if (!error?.response?.data?.success) {
-              toast.success(error?.response?.data?.error || "An unexpected error occurred");
-            }
-            console.log(error.message || 'An unexpected error occurred');
-          }
-        }
-      };
+   
 
       const deleteDoc = async () => {
         // console.log(docData)
         try {
             // Replace with your actual fetching logic, like using fetch() or axios
-            const response = await axios.post(`${fetchingURL}/docbox/deleteDoc`, {docId: docData._id}, { withCredentials: true })
+            const response = await api.post(`/docbox/deleteDoc`, {docId: docData._id}, {
+              headers: {
+                  'Content-Type': 'application/json',  // Sending JSON data
+              },
+        })
       
             // console.log(response.data)
             if (response.data?.success) {

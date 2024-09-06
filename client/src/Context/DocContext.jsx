@@ -67,6 +67,7 @@ api.interceptors.request.use(
  
     localStorage.removeItem('token')
     setToken(false)
+    setfetchData([])
   };
 
   const fetchDocs = async () => {
@@ -85,7 +86,7 @@ api.interceptors.request.use(
     } catch (error) {
       if (error?.response) {
         if (!error?.response?.data?.success) {
-          toast.success(error?.response?.data?.error || "An unexpected error occurred");
+          console.log(error?.response?.data?.error || "An unexpected error occurred");
         }
         console.log(error.message || 'An unexpected error occurred');
       }

@@ -15,7 +15,7 @@ const DocHomePage = () => {
   document.title = `Doc File`;
   ScrollToTop()
 
-  const { token, fetchData, setfetchData, fetchDocs} = useDocContext()
+  const { token, fetchData, setfetchData, fetchDocs, api} = useDocContext()
 
 
   const [isCreatePopupOpen, setIsCreatePopupOpen] = useState(false);
@@ -51,9 +51,13 @@ const DocHomePage = () => {
         return toast.error("Please fill title field.")
       }
 
-      const response = await axios.post(`${fetchingURL}/docbox/createDoc`, {
+      const response = await api.post(`/docbox/createDoc`, {
         docName: titleState
-      }, { withCredentials: true });
+      }, {
+        headers: {
+            'Content-Type': 'application/json',  // Sending JSON data
+        },
+    });
 
       if (response?.data?.success) {
         // console.log(response?.data)

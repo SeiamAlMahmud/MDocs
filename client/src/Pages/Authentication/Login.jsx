@@ -37,7 +37,7 @@ const Login = () => {
   const location = useLocation()
   const from = location?.state?.from || "/"
   // console.log(from)
-  const { token, setToken, count, isVisible, setIsVisible, setResUsername,setCount,api } = useDocContext()
+  const { token, setToken, count, isVisible, setIsVisible, setResUsername,setCount,api, fetchDocs } = useDocContext()
 
   useEffect(() => {
    
@@ -90,6 +90,7 @@ const Login = () => {
           setToken(true)
           localStorage.setItem('token',response.data?.token)
           setResUsername(response?.data?.data?.username)
+          fetchDocs()
           navigate(from)
 
         }
@@ -107,8 +108,8 @@ const Login = () => {
 
   return (
     <>
-      {isVisible && !token ? (<div className="flex items-center justify-center flex-col   w-screen bg-[#F0F0F0]">
-        <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around bg-[#F0F0F0]  ">
+      {isVisible && !token ? (<div className="flex items-center justify-center flex-col   w-screen ">
+        <div className="flex items-center w-full flex-col-reverse md:flex-row md:justify-around   ">
           <div className="left flex  flex-col w-[80%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
           <div className='flex gap-3 items-center justify-start mt-10'>
             <img src={image_1212} alt="Logo" className='h-20 w-20 ' />

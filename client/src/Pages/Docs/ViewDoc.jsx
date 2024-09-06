@@ -4,18 +4,19 @@ import { fetchingURL } from '../../FetchURL/fetchingURL'
 import axios from 'axios'
 import Loading from '../../Components/Loading/Loading'
 import { IoMdPrint } from "react-icons/io";
+import { useDocContext } from '../../Context/DocContext'
 
 const ViewDoc = () => {
   const { docsId } = useParams()
   const [docData, setDocData] = useState({})
   const navigate = useNavigate()
-
+ const {api} = useDocContext()
 
   const getViewDoc = async () => {
     // console.log(docData)
     try {
 
-      const response = await axios.post(`${fetchingURL}/docbox/forpublic`, {
+      const response = await api.post(`/docbox/forpublic`, {
         docId: docsId
       })
       // console.log(response.data, "jj")

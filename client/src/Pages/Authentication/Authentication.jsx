@@ -37,7 +37,7 @@ const Authentication = () => {
   const [loading, setLoading] = useState(false)
   const [togglePassConfirm, setTogglePassConfirm] = useState(false)
   const navigate = useNavigate()
-  const { token, setToken, count, setCount, isVisible, setIsVisible, setResUsername,api } = useDocContext()
+  const { token, setToken, count, setCount, isVisible, setIsVisible, setResUsername,api, fetchDocs } = useDocContext()
   const now = new Date()
 
 
@@ -105,6 +105,14 @@ const Authentication = () => {
         return toast.error("Passwords don't match.")
       }
 
+      if (userData.password.length < 6  ) {
+        return toast.error("Passwords must be at least 6 characters.")
+      }
+
+      if (userData.confirmPassword.length < 6) {
+        return toast.error("Passwords must be at least 6 characters.")
+      }
+
       const response = await api.post(`/users/register`, userData, {
         headers: {
             'Content-Type': 'application/json',  // Sending JSON data
@@ -119,6 +127,7 @@ const Authentication = () => {
         localStorage.setItem('token', response.data?.token)
         setToken(true)
         setResUsername(response?.data?.data?.username)
+        fetchDocs()
         navigate("/")
       }
     } catch (error) {

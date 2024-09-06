@@ -45,7 +45,7 @@ const NavbarPopup = () => {
           <li onClick={(e) => {
             logout()
             navigate("/")
-            }} className='flex justify-around w-full items-center text-lg py-1 cursor-pointer text-black hover:bg-[#80808030] transition-all border-b-2'><i><TbLogout /></i><span>Log Out</span> </li>
+            }} className='flex justify-around w-full items-center text-lg py-1 cursor-pointer text-black hover:bg-[#80808030] border-b-0 transition-all '><i><TbLogout /></i><span>Log Out</span> </li>
 
 
         </ul>

@@ -15,8 +15,8 @@ const Navbar = () => {
     const location = useLocation()
     // console.log(location.pathname)
     return (<>
-        <div className={`navbar z-50 flex  items-center px-3 sm:px-10 md:px h-20 justify-between ${location.pathname == "/" ? "bg-[#02124f]" : "bg-[#fcc419]"}  border-b-8 ${location.pathname == "/" ? "text-white" : "text-black"} border-black backdrop-blur-sm`}>
-            <div className='flex gap-3 items-center justify-start'>
+        <div className={`navbar z-50 flex  items-center px-3 sm:px-10 md:px h-14 py-8  md:h-20 justify-between ${location.pathname == "/" ? "bg-[#02124f]" : "bg-[#fcc419]"}  border-b-8 ${location.pathname == "/" ? "text-white" : "text-black"} border-black backdrop-blur-sm`}>
+            <div className='flex gap-3 items-center justify-start '>
                 <img src={image_1212} className='h-12 cursor-pointer' alt="logo" onClick={() => navigate('/')} />
                 <h2 className={`hidden sm:block text-3xl ${location.pathname == "/" ? "text-white" : "text-black"} font-bold cursor-pointer`} onClick={() => navigate('/')}>MDocs</h2>
             </div>

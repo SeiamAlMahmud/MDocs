@@ -95,10 +95,14 @@ const CreateDoc = () => {
         e.preventDefault();
         try {
             // Replace with your actual fetching logic, like using fetch() or axios
-            const response = await axios.post(`${fetchingURL}/docbox/updateTitle`, {
+            const response = await api.post(`/docbox/updateTitle`, {
                 docId: docsId,
                 title: title
-            }, { withCredentials: true })
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',  // Sending JSON data
+                },
+            })
 
             // console.log(response.data)
             if (response.data?.success) {
@@ -119,10 +123,14 @@ const CreateDoc = () => {
     const updateStatus = async (e) => {
         try {
             // Replace with your actual fetching logic, like using fetch() or axios
-            const response = await axios.post(`${fetchingURL}/docbox/updateStatus`, {
+            const response = await api.post(`/docbox/updateStatus`, {
                 docId: docsId,
                 isPublish: status
-            }, { withCredentials: true })
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',  // Sending JSON data
+                },
+            })
 
             // console.log(response.data)
             if (response.data?.success) {
