@@ -37,7 +37,7 @@ const Login = () => {
   const location = useLocation()
   const from = location?.state?.from || "/"
   // console.log(from)
-  const { token, setToken, count, isVisible, setIsVisible, setResUsername,setCount } = useDocContext()
+  const { token, setToken, count, isVisible, setIsVisible, setResUsername,setCount,api } = useDocContext()
 
   useEffect(() => {
    
@@ -77,23 +77,26 @@ const Login = () => {
       }
 
 
-      const response = await axios.post(`${fetchingURL}/users/login`, userData, { withCredentials: true });
-      if (response.data.message) {
-        console.log('Login successful');
-
-        if (response?.data?.success) {
+      const response = await api.post(`/users/login`, userData, {
+        headers: {
+            'Content-Type': 'application/json',  // Sending JSON data
+        },
+    });
+    
+      
+      if (response?.data?.success) {
+          console.log('Login successful');
           toast.success(response.data?.message);
           setToken(true)
+          localStorage.setItem('token',response.data?.token)
           setResUsername(response?.data?.data?.username)
           navigate(from)
 
         }
-        // Redirect to dashboard or update UI
-      }
     } catch (error) {
       console.log(error?.response?.data)
       if (!error?.response?.data?.success) {
-        toast.error(error?.response?.data?.error || "An unexpected error occurred");
+        console.log(error?.message || "An unexpected error occurred");
       }
       console.error('Login failed:', error.response.data);
     } finally {

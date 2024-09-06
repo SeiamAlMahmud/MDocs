@@ -11,7 +11,7 @@ const CreateDoc = () => {
     document.title = `Create new Doc`
 
 
-    const { token } = useDocContext()
+    const { token , api} = useDocContext()
 
     const { docsId } = useParams()
     const editor = useRef(null);
@@ -27,10 +27,14 @@ const CreateDoc = () => {
     const updateDoc = async (newContent) => {
         // console.log(fetchingURL)
         try {
-            const response = await axios.post(`${fetchingURL}/docbox/updateDoc`, {
+            const response = await api.post(`/docbox/updateDoc`, {
                 content: newContent,
                 docId: docsId
-            }, { withCredentials: true })
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',  // Sending JSON data
+                },
+            })
             // console.log(response?.data)
 
             if (response?.data?.success) {
@@ -49,9 +53,13 @@ const CreateDoc = () => {
     const fetchContent = async () => {
         try {
             // Replace with your actual fetching logic, like using fetch() or axios
-            const response = await axios.post(`${fetchingURL}/docbox/getDoc`, {
+            const response = await api.post(`/docbox/getDoc`, {
                 docId: docsId
-            }, { withCredentials: true })
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',  // Sending JSON data
+                },
+            })
 
             // console.log(response.data)
             if (response.data?.success) {

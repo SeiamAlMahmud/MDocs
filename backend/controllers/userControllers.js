@@ -50,7 +50,7 @@ const register = async (req, res) => {
 
         if (newUser) {
             // Generate Jwt Token
-            generateTokenAndSetCookie(newUser._id, res)
+         const token =  generateTokenAndSetCookie(newUser._id, res)
 
             await newUser.save();
 
@@ -62,6 +62,7 @@ const register = async (req, res) => {
                     username: newUser.username,
                     email: newUser.email
                 },
+                token,
                 message: "User Created Successfully"
             })
         } else {
@@ -100,7 +101,7 @@ const login = async (req, res) => {
 
 
         if (user && isMatch) {
-            generateTokenAndSetCookie(user._id, res);
+         const token =  generateTokenAndSetCookie(user._id, res);
 
             res.status(200).json({
                 success: true,
@@ -110,6 +111,7 @@ const login = async (req, res) => {
                     username: user.username,
                     email: user.email
                 },
+                token,
                 message: "User Login Successfully"
             })
         } else {

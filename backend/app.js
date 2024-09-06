@@ -15,10 +15,11 @@ const cors = require('cors');
 
 
 const app = express();
-// CORS configuration
+// CORS Configuration
 const corsOptions = {
-    origin: ['http://localhost:5173', "https://mdoc.almahmud.top/"], // Replace with your frontend URL
-    credentials: true, // Allow cookies and authentication headers
+  origin: ['http://localhost:5173', 'https://mdoc.almahmud.top'],  // Add your frontend URLs
+  methods: ['GET', 'POST'],  // Specify allowed HTTP methods
+  allowedHeaders: ['Authorization', 'Content-Type'],  // Allow the Authorization header for Bearer token
 };
 
 app.use(cors(corsOptions));

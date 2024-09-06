@@ -37,7 +37,7 @@ const Authentication = () => {
   const [loading, setLoading] = useState(false)
   const [togglePassConfirm, setTogglePassConfirm] = useState(false)
   const navigate = useNavigate()
-  const { token, setToken, count, setCount, isVisible, setIsVisible, setResUsername } = useDocContext()
+  const { token, setToken, count, setCount, isVisible, setIsVisible, setResUsername,api } = useDocContext()
   const now = new Date()
 
 
@@ -105,13 +105,18 @@ const Authentication = () => {
         return toast.error("Passwords don't match.")
       }
 
-      const response = await axios.post(`${fetchingURL}/users/register`, userData, { withCredentials: true });
+      const response = await api.post(`/users/register`, userData, {
+        headers: {
+            'Content-Type': 'application/json',  // Sending JSON data
+        },
+    });
 
       // console.log('kk', response)
 
       if (response?.data?.success) {
         toast.success(response.data?.message);
         localStorage.removeItem('draftReg');
+        localStorage.setItem('token', response.data?.token)
         setToken(true)
         setResUsername(response?.data?.data?.username)
         navigate("/")

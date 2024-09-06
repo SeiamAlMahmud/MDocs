@@ -6,12 +6,7 @@ const generateTokenAndSetCookie = (userId, res) => {
         expiresIn: "10d"
     }); // openssl rand -base64 32
 
-    res.cookie("jwt", token, {
-        maxAge: 10 * 24 * 60 * 60 * 1000, //miliseconds
-        httpOnly: true, // prevent XSS Attacks cross-site scripting attacks
-        sameSite: "strict", //CSRF Attacks cross-site request forgery attacks
-        secure: process.env.NODE_ENV !== "development"
-    })
+ return token
 }
 
 module.exports = generateTokenAndSetCookie
