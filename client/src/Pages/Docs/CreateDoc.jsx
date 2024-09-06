@@ -180,13 +180,13 @@ const CreateDoc = () => {
                     <form onSubmit={updateTitle}>
                         <div className='mb-4  w-full flex justify-center mx-auto px-4 border-[3px] rounded-lg py-1 items-center gap-2'>
                             <label htmlFor="title" className=''>Title</label>
-                            <input type="text" id='title' className=' w-full py-2 my-1 border rounded-md text-lg pl-4'
+                            <input type="text" id='title' className=' w-full py-1 my-1 border rounded-md text-sm md:text-lg pl-4'
                                 value={title}
                                 onChange={(e) => settitle(e.target.value)}
                             />
                             <button
                                 type='submit'
-                                className='border border-black py-1 px-2 rounded-lg bg-[#1a1e2c] hover:bg-[#14286d] transition-all text-white text-lg md:text-xl'>Save</button>
+                                className='border border-black py-1 px-2 rounded-lg bg-[#1a1e2c] hover:bg-[#14286d] transition-all text-white text-sm md:text-lg'>Save</button>
                         </div>
                     </form>
                     <div className='w-full flex justify-between items-center px-4 mb-4'>

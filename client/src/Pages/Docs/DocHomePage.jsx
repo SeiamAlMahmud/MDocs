@@ -39,7 +39,9 @@ const DocHomePage = () => {
     }
   };
 
- 
+ useEffect(()=>{
+  fetchDocs()
+ },[])
 
 
   const createNewDocHandler = async (e) => {
@@ -75,9 +77,6 @@ const DocHomePage = () => {
     // console.log(fetchingURL, titleState.length)
   }
 
-
-
-
   return (
     <>
       {token && <div >
@@ -85,7 +84,7 @@ const DocHomePage = () => {
 
           <div className='flex items-center justify-between px-5 sm:px-10 md:px-20 mt-7  mb-3'>
             <h2 className='text-xl sm:text-4xl'>All Documents</h2>
-            <button onClick={handleOpenPopup} className=' flex items-center gap-1 border-0 text-white outline-none p-1 sm:p-2 md:p-3 bg-sky-700 rounded-xl min-w-28 cursor-pointer transition-transform ease-linear duration-300 justify-center  hover:bg-[#3882F6] '><i><BsPlusLg /></i> Create New Document</button>
+            <button onClick={handleOpenPopup} className=' flex items-center gap-1 border-0 text-white outline-none p-1 pr-2 sm:p-2 md:p-3 bg-sky-700 rounded-xl min-w-28 cursor-pointer transition-transform ease-linear duration-300 justify-center  hover:bg-[#3882F6] '><i><BsPlusLg /></i> Create New</button>
           </div>
         </div>
 

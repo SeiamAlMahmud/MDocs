@@ -57,9 +57,9 @@ const ViewDoc = () => {
         // Check if docData is an empty object
         Object.keys(docData).length === 0 ? <Loading /> : (
           <div className='h-full w-full px-10 flex flex-col mt-10'>
-            <div className="title flex font-serif items-center gap-4 text-3xl md:text-5xl">
+            <div className="title flex font-serif items-center gap-4 text-3xl md:text-5xl border-b pb-2">
               <h1> <span className='font-serif'> Title:</span>
-                <span className='hover:text-[#322ceb] hover:underline cursor-pointer'> {docData?.title}</span>  </h1>
+                <span className='hover:text-[#fcc419] hover:underline cursor-pointer'> {docData?.title}</span>  </h1>
             </div>
             <div>
               <h3>Created by: {docData?.uploadBy}</h3>
@@ -73,7 +73,7 @@ const ViewDoc = () => {
             <div className=' border-2 p-3  mb-8 rounded-lg' dangerouslySetInnerHTML={{ __html: docData?.content }} />
             <button
               onClick={handlePrint}
-              className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 flex items-center text-2xl justify-center gap-1 w-40 mb-24'
+              className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 flex items-center text-sm md:text-lg xl:text-2xl justify-center gap-1 w-20 xl:w-36 mb-24'
             >
               <i><IoMdPrint /></i>
               Print

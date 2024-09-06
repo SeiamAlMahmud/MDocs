@@ -36,7 +36,7 @@ const CreatePopUp = ({
                             <i className='absolute bottom-3 left-2 text-lg'><MdOutlineTitle /></i>
                         </div>
                         <div className='flex items-center gap-2 justify-between w-full'>
-                            <button type='submit'  className='border-none outline-none w-full text-center bg-[#1a202c] text-white capitalize py-3 rounded-xl mt-6 hover:bg-[#1d335d]'>Create</button>
+                            <button type='submit'  className='border-none outline-none w-full text-center bg-[#1a202c] text-white capitalize py-3 sm:py-[10px] md:py-3 rounded-xl mt-6 hover:bg-[#1d335d] text-lg'>Create</button>
                         </div>
                         </form>
                     </div>
