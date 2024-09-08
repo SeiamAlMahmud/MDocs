@@ -19,11 +19,7 @@ const storeDocData =  location.state?.docData
     if (location.state && storeDocData) {
         setDocData(storeDocData)
     }
-    if (Object.keys(docData).length === 0) {
-        setTimeout(() => {
-        navigate("/doc")
-    }, 10000);
-}
+ 
   }, [])
 
 

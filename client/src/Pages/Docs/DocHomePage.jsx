@@ -90,9 +90,9 @@ const DocHomePage = () => {
 
         {/* ############## Doc List Section ##########  */}
         <div className='allDoc  px-5 sm:px-10 md:px-20 mt-4  relative'>
-          <h2 className={`text-center text-2xl absolute top-8 left-0 right-0 ${fetchData.length == 0 ? "block" : "hidden"}`}>You have no documents. Let's Create a new Document.</h2>
+          <h2 className={`text-center text-2xl  top-8 absolute left-0 right-0 ${fetchData.length == 0 ? "block" : "hidden"}`}>You have no documents. Let's Create a new Document.</h2>
 
-      { fetchData.length !== 0 ? (  <div>
+      { fetchData.length !== 0 ? (  <div className='mt-10'>
           {
             fetchData.map((docData,idx)=> {
               return (

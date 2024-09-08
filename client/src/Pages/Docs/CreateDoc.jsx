@@ -189,10 +189,10 @@ const CreateDoc = () => {
                         </div>
                     </form>
                     <div className='w-full flex justify-between items-center px-4 mb-4'>
-                        <div className='text-sm flex flex-col sm:flex-row sm:gap-4 gap-1'><span className='hidden sm:block'> Created: {formattedCreatedAt}</span>
+                        <div className='text-sm flex flex-col sm:flex-row sm:gap-4 gap-1 items-center'><span className='hidden sm:block'> Created: {formattedCreatedAt}</span>
                         <span className='hidden sm:block'>|</span>
                         <span> Last Updated: {formattedUpdatedAt}</span> 
-                        <button onClick={()=> navigate(`/preview`, { state: {docData}})} className='text-left bg-[#80808054] p-[4px] text-black rounded-sm cursor-pointer transition-all hover:bg-[#808080] hover:text-white'>peview</button>
+                        <button onClick={()=> navigate(`/preview`, { state: {docData}})} className=' bg-[#80808054] p-[4px] text-black rounded-sm cursor-pointer transition-all hover:bg-[#808080] hover:text-white w-16 text-center'>peview</button>
                         </div>
                         <div className='gap-3 flex flex-col sm:flex-row text-sm md:text-lg'>
                             <select
