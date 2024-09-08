@@ -34,7 +34,7 @@ const NavbarPopup = () => {
     <div className='relative z-[200]'>
       <img ref={navbarPopRef} id='navPopup'
       onClick={()=> setIsNavPopupRef(prev => !prev)}
-      src={navbarImage} 
+      src={"https://randomimg.almahmud.top/public" || navbarImage} 
       alt={"Logo"}
       className='h-12 text-white' />
 
