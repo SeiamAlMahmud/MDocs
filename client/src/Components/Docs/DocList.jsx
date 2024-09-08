@@ -45,7 +45,7 @@ const DocList = ({ docData }) => {
 
         return `${day} ${month} ${year}`;
     };
-console.log(docData)
+// console.log(docData)
     const formattedCreatedAt = formatDate(docData?.createdAt);
     const formattedUpdatedAt = formatDate(docData?.updatedAt);
 
