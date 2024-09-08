@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import JoditEditor from "jodit-pro-react";
-import { useParams } from 'react-router-dom'
-import { fetchingURL } from '../../FetchURL/fetchingURL';
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDocContext } from '../../Context/DocContext';
-import axios from 'axios';
 import debounce from 'lodash/debounce';
 import toast from 'react-hot-toast';
 
@@ -19,6 +17,7 @@ const CreateDoc = () => {
     const [title, settitle] = useState('')
     const [docData, setDocData] = useState({})
     const [status, setStatus] = useState("unpublish")
+    const navigate = useNavigate()
 
 
 
@@ -192,7 +191,9 @@ const CreateDoc = () => {
                     <div className='w-full flex justify-between items-center px-4 mb-4'>
                         <div className='text-sm flex flex-col sm:flex-row sm:gap-4 gap-1'><span className='hidden sm:block'> Created: {formattedCreatedAt}</span>
                         <span className='hidden sm:block'>|</span>
-                        <span> Last Updated: {formattedUpdatedAt}</span> </div>
+                        <span> Last Updated: {formattedUpdatedAt}</span> 
+                        <button onClick={()=> navigate(`/preview`, { state: {docData}})} className='text-left bg-[#80808054] p-[4px] text-black rounded-sm cursor-pointer transition-all hover:bg-[#808080] hover:text-white'>peview</button>
+                        </div>
                         <div className='gap-3 flex flex-col sm:flex-row text-sm md:text-lg'>
                             <select
                              value={status} 

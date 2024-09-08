@@ -31,7 +31,7 @@ const NavbarPopup = () => {
     setIsNavPopupRef(false)
   },[pathname])
   return (
-    <div className='relative'>
+    <div className='relative z-[200]'>
       <img ref={navbarPopRef} id='navPopup'
       onClick={()=> setIsNavPopupRef(prev => !prev)}
       src={navbarImage} 

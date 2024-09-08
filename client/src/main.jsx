@@ -17,6 +17,7 @@ import PrivateRoute from './PrivateRoute/PrivateRoute.jsx';
 import CreateDoc from './Pages/Docs/CreateDoc.jsx';
 import DemoDoc from './Pages/Docs/DemoDoc.jsx';
 import ViewDoc from "./Pages/Docs/ViewDoc.jsx"
+import PreviewDoc from './Pages/Docs/PreviewDoc.jsx';
 
 
 
@@ -58,10 +59,17 @@ const router = createBrowserRouter([
         path: "/demoDoc",
         element: <DemoDoc />
       },
-
       {
         path: "/view/:docsId",
         element: <ViewDoc />
+      },
+      {
+        path: "/preview",
+        element: (
+          <PrivateRoute>
+            <PreviewDoc />
+          </PrivateRoute>
+        )
       }
     ],
   },

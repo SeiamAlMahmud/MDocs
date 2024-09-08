@@ -73,7 +73,7 @@ console.log(docData)
                 <div className="left flex gap-3 flex-col sm:flex-row">
                     <img onClick={() => navigate(`/createdoc/${docData._id}`)} src={DocIcon} alt="docIcon" className='h-12 w-12 sm:h-16 md:h-20 sm:w-16 md:w-20' />
                     <div className='flex flex-col gap-1 mt-1 s'>
-                        <div className='flex justify-start items-center gap-4'>
+                        <div className='flex justify-start items-center gap-2'>
                         <h3 onClick={() => navigate(`/createdoc/${docData._id}`)} className='text-md font-semibold overflow-hidden'>{docData?.title}</h3>
                         <button onClick={copyToClipboard} className={`text-sm p-2 ${docData.isPublish == 'unpublish' ? 'text-[#808080]' : 'text-black'}`} disabled={docData.isPublish == 'unpublish' && true} ><FaLink /></button>
                         </div>
