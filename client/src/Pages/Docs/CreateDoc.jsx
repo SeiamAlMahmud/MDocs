@@ -173,7 +173,10 @@ const CreateDoc = () => {
 // console.log(status)
     return (
         <div>
-
+            <div className='mx-2 my-3 sm:mx-6 flex gap-3'>
+                <button onClick={()=> window.history.back()} className=' bg-[#80808054] p-[4px] text-black rounded-sm cursor-pointer transition-all hover:bg-[#808080] hover:text-white w-16 text-center'>Back</button>
+                <button onClick={()=> navigate(`/preview`, { state: {docData}})} className=' bg-[#80808054] p-[4px] text-black rounded-sm cursor-pointer transition-all hover:bg-[#808080] hover:text-white w-16 text-center'>peview</button>
+            </div>
             {
                 token ? (<div className='mx-2 my-3 sm:mx-5 sm:mt-6 '>
                     <form onSubmit={updateTitle}>
@@ -192,7 +195,7 @@ const CreateDoc = () => {
                         <div className='text-sm flex flex-col sm:flex-row sm:gap-4 gap-1 items-center'><span className='hidden sm:block'> Created: {formattedCreatedAt}</span>
                         <span className='hidden sm:block'>|</span>
                         <span> Last Updated: {formattedUpdatedAt}</span> 
-                        <button onClick={()=> navigate(`/preview`, { state: {docData}})} className=' bg-[#80808054] p-[4px] text-black rounded-sm cursor-pointer transition-all hover:bg-[#808080] hover:text-white w-16 text-center'>peview</button>
+                      
                         </div>
                         <div className='gap-3 flex flex-col sm:flex-row text-sm md:text-lg'>
                             <select
