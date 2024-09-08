@@ -1,5 +1,5 @@
 import React from 'react'
-import image from "/hero-img.svg"
+import hero from "../../../../assets/hero-img.svg"
 import { Tilt } from 'react-tilt'
 
 
@@ -12,7 +12,7 @@ const Banner = () => {
     <h1 style={{lineHeight:1}} className='text-[3.5rem] sm:text-[3.5rem] mx-10 md:text-[4rem] xl:text-[5.5rem] font-bold'>
     Work in a <br /> <span className='text-[#BF0058]'> hassle-free </span><br />  and <span className='text-[#BF0058]'> auto-save mode</span><br /> for a smoother experience.
     </h1>
-    <img src={image} className='md:mt-14 mt-5 mr-5 h-[500px]' alt="" />
+    <img src="https://seiamalmahmud.github.io/Dream/images/hero-img.svg" className='md:mt-14 mt-5 mr-5 h-[500px]' alt="" />
    </div>
    </>
   )
