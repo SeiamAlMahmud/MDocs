@@ -13,7 +13,7 @@ const HeroSection = () => {
   const text = "Build & share your Documents,  users love with MDocs, a platform designed to support you throughout your Writting journey. Backed by AlMahmud and trusted by millions of Writter & Blogger around the world.";
 
   const letters = text.split("");
-  console.log(letters)
+  // console.log(letters)
   return (
     <div className='bg-[#090917] text-white '>
       <h1 className='text-center text-6xl lg:text-8xl pt-20  px-5 font-extrabold items-center flex justify-center flex-col'> <span>Make your Documents. </span> <br /> <span> </span> The best it can be with MDocs.

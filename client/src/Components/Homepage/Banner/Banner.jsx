@@ -1,6 +1,4 @@
 import React from 'react'
-import hero from "../../../../assets/hero-img.svg"
-import { Tilt } from 'react-tilt'
 
 
 

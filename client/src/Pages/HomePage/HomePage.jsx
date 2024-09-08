@@ -1,7 +1,8 @@
 import React from 'react'
 import ScrollToTop from '../../Foundation/ScrollToTop';
 import HeroSection from '../../Components/Homepage/HeroSection/HeroSection';
-import Banner from '../../Components/Homepage/HeroSection/Banner/Banner';
+import Banner from '../../Components/Homepage/Banner/Banner';
+import DownloadApp from '../../Components/Homepage/DownloadApp/DownloadApp';
 const HomePage = () => {
   document.title = `Homepage`;
   ScrollToTop()
@@ -10,6 +11,7 @@ const HomePage = () => {
     <div className='h-full'>
       <HeroSection />
       <Banner />
+      <DownloadApp />
     </div>
   )
 }
