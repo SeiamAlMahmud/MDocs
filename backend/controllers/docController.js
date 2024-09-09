@@ -222,7 +222,7 @@ const getForPublic = async (req, res) => {
 }
 
 const searchDoc = async (req, res) => {
-    const { search } = req.query;
+    const { search } = req.body;
     try {
 
         if (!search) {

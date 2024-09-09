@@ -7,7 +7,7 @@ const DownloadApp = () => {
     <>
     <div className='bg-[#fff9db]  mx-auto py-20 pt-16'>
       <div className='text-center'>
-        <h1 className='text-4xl mb-8 sm:text-6xl'>For Better Experience Download
+        <h1 className='text-4xl mx-2 mb-8 sm:text-6xl'>For Better Experience Download
         MDocs App</h1>
       </div>
       <div className='flex items-center justify-center'>

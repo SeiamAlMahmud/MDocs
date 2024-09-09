@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { fetchingURL } from '../../FetchURL/fetchingURL'
 import axios from 'axios'
 import Loading from '../../Components/Loading/Loading'
@@ -10,7 +10,11 @@ const ViewDoc = () => {
   const { docsId } = useParams()
   const [docData, setDocData] = useState({})
   const navigate = useNavigate()
- const {api} = useDocContext()
+  const { api } = useDocContext()
+  const location = useLocation()
+  const pathname = location.pathname;
+
+
 
   const getViewDoc = async () => {
     // console.log(docData)
@@ -30,6 +34,9 @@ const ViewDoc = () => {
       console.log(error)
     }
   }
+  useEffect(() => {
+    getViewDoc()
+  }, [pathname])
 
   useEffect(() => {
     getViewDoc()
@@ -59,7 +66,7 @@ const ViewDoc = () => {
           <div className='h-full w-full px-10 flex flex-col mt-10'>
             <div className="title flex font-serif items-center gap-4 text-3xl md:text-5xl border-b pb-2">
               <h1> <span className='font-serif'> Title:</span>
-                <span className='hover:text-[#fcc419] hover:underline cursor-pointer'> {docData?.title}</span>  </h1>
+                <span className='hover:text-[#BB0055] hover:underline cursor-pointer'> {docData?.title}</span>  </h1>
             </div>
             <div>
               <h3>Created by: {docData?.uploadBy}</h3>
