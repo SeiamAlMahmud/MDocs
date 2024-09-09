@@ -199,7 +199,7 @@ const updateExistingStatus = async (req, res) => {
 
 
 const getForPublic = async (req, res) => {
-    const {docId} = req.body
+    const { docId } = req.body
     try {
         if (!docId) {
             return res.status(404).json({ success: false, error: "Document Reference invalid" })
@@ -212,8 +212,8 @@ const getForPublic = async (req, res) => {
         }
         if (gotDoc.isPublish == "unpublish") {
             return res.status(401).json({ success: false, error: "Document has restricted by owner of this Document." })
-        }else {
-            return res.status(200).json({ success: true, message: "Document send Frontend successfully", docData: gotDoc }) 
+        } else {
+            return res.status(200).json({ success: true, message: "Document send Frontend successfully", docData: gotDoc })
         }
 
     } catch (error) {
@@ -221,8 +221,30 @@ const getForPublic = async (req, res) => {
     }
 }
 
-const searchDoc =  async (req,res)=> {
+const searchDoc = async (req, res) => {
+    const { search } = req.query;
+    try {
 
+        if (!search) {
+            return res.status(404).json({ success: false, error: "search undefined" })
+        }
+
+        let query = {
+            isPublish: "publish",
+        };
+        if (search) {
+            query.title = { $regex: search, $options: 'i' }; // Case-insensitive search by $options
+        }
+
+        const documents = await Doc.find(query, '_id title'); // In query i shortcut it { isPublish: "publish", title: { $regex: search, $options: 'i' } }
+
+        return res.status(200).json({ success: true, documents })
+
+    } catch (error) {
+        console.log(error)
+
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
 }
 
-module.exports = { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser, DeleteDoc, updateExistingStatus, getForPublic,searchDoc }
+module.exports = { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser, DeleteDoc, updateExistingStatus, getForPublic, searchDoc }
