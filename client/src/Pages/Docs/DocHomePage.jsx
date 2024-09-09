@@ -76,7 +76,7 @@ const DocHomePage = () => {
 
   return (
     <>
-      {token && <div >
+      {token && <div>
         <div >
 
           <div className='flex items-center justify-between px-5 sm:px-10 md:px-20 mt-7  mb-3'>
@@ -86,8 +86,9 @@ const DocHomePage = () => {
         </div>
 
         {/* ############## Doc List Section ##########  */}
-        <div className='allDoc  px-5 sm:px-10 md:px-20 mt-4  relative mb-20'>
-          <h2 className={`text-center text-2xl  top-8 absolute left-0 right-0 ${fetchData.length == 0 ? "block" : "hidden"}`}>You have no documents. Let's Create a new Document.</h2>
+        <div className='allDoc   px-5 sm:px-10 md:px-20 mt-4   mb-20'>
+          
+          <h2 className={`text-center text-2xl  mt-20 ${fetchData.length == 0 ? "block" : "hidden"}`}>You have no documents. Let's Create a new Document.</h2>
 
       { fetchData.length !== 0 ? (  <div className='mt-10'>
           {

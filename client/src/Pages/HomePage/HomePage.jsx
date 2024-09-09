@@ -9,8 +9,8 @@ const HomePage = () => {
 
   return (
     <div className='h-full'>
-      <HeroSection />
       <Banner />
+      <HeroSection />
       <DownloadApp />
     </div>
   )

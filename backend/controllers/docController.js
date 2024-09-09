@@ -221,4 +221,8 @@ const getForPublic = async (req, res) => {
     }
 }
 
-module.exports = { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser, DeleteDoc, updateExistingStatus, getForPublic }
+const searchDoc =  async (req,res)=> {
+
+}
+
+module.exports = { createNewDoc, updateExistingDoc, getDoc, updateExistingTitle, getDocsViaUser, DeleteDoc, updateExistingStatus, getForPublic,searchDoc }

@@ -7,7 +7,7 @@ import navPhoto from "../../assets/public.png"
 
 
 
-const NavbarPopup = () => {
+const NavbarPopup = ({setToggle}) => {
   const navigate = useNavigate()
   const [isnavPopupRef, setIsNavPopupRef] = useState(false);
   const location = useLocation()
@@ -33,7 +33,11 @@ const NavbarPopup = () => {
   return (
     <div className='relative z-[200]'>
       <img ref={navbarPopRef} id='navPopup'
-      onClick={()=> setIsNavPopupRef(prev => !prev)}
+      onClick={()=>{ setIsNavPopupRef(prev => !prev)
+        if (isnavPopupRef === false) {
+          setToggle(false)
+        }
+      }}
       src={"https://randomimg.almahmud.top/public" || navbarImage} 
       alt={"Logo"}
       className='h-12 text-white' />

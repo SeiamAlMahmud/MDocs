@@ -5,7 +5,7 @@ import apple from "../../../assets/55.svg"
 const DownloadApp = () => {
   return (
     <>
-    <div className='bg-[#fff9db]  mx-auto py-20 mt-8'>
+    <div className='bg-[#fff9db]  mx-auto py-20 pt-16'>
       <div className='text-center'>
         <h1 className='text-4xl mb-8 sm:text-6xl'>For Better Experience Download
         MDocs App</h1>

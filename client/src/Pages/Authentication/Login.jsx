@@ -117,34 +117,39 @@ const Login = () => {
             </div>
             <form className='pl-3 mt-5' onSubmit={onSubmitHandler}>
               <div>
-                <div className='flex flex-col relative w-full'>
+                <div className='flex flex-col  w-full'>
                   <label htmlFor="username" className='text-lg text-[#808080]'>Username: </label>
                   <input type="text" id='username' name='username' placeholder='username' required onChange={onChangeHandler} value={userData.username}
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 rounded-md mt-2 text-lg '
                   />
+                   <div className='relative'>
                   <i className='absolute bottom-3 left-2 text-lg'><FaUser /></i>
+                  </div>
                 </div>
 
 
 
 
-                <div className='flex flex-col relative w-full'>
+                <div className='flex flex-col  w-full'>
                   <label htmlFor="email" className='text-lg text-[#808080]'>Email: </label>
                   <input type="email" id='email' name='email' placeholder='email' required onChange={onChangeHandler} value={userData.email}
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 rounded-md mt-2 text-lg '
                   />
+                    <div className='relative'>
                   <i className='absolute bottom-3 left-2 text-lg'><MdEmail /></i>
+                    </div>
                 </div>
 
 
 
-                <div className='flex flex-col relative w-full my-3'>
+                <div className='flex flex-col  w-full my-3'>
                   <label htmlFor="password" className='text-lg text-[#808080]'>Password: </label>
                   <input type={togglePass ? "text" : "password"} id='password' name='password' placeholder='password' required onChange={onChangeHandler} value={userData.password}
                     className='flex bg-[#eaeaea] border-[1px]  focus:outline-red-200 border-hidden outline-none flex-1 pl-8 p-2 pr-8 rounded-md mt-2 text-lg '
-                  />
+                  />  <div className='relative'>
                   <i className='absolute bottom-3 left-2 text-lg'><RiLockPasswordFill /></i>
-                  <i className='absolute bottom-3 right-2 text-lg cursor-pointer' onClick={() => setTogglePass(prev => !prev)}>{togglePass ? <IoEye /> : <IoEyeOffSharp />}</i>
+                  <i className='absolute bottom-2 right-2 text-lg cursor-pointer p-1' onClick={() => setTogglePass(prev => !prev)}>{togglePass ? <IoEye /> : <IoEyeOffSharp />}</i>
+                  </div>
                 </div>
 
 

@@ -4,6 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDocContext } from '../../Context/DocContext';
 import debounce from 'lodash/debounce';
 import toast from 'react-hot-toast';
+import Loading from '../../Components/Loading/Loading';
+import { FaLink } from "react-icons/fa";
+
+
 
 const CreateDoc = () => {
     document.title = `Create new Doc`
@@ -68,7 +72,7 @@ const CreateDoc = () => {
                 settitle(response.data?.docData?.title)
             }
         } catch (error) {
-            if (response?.data?.success) {
+            if (error.response) {
                 if (!error?.response?.data?.success) {
                     toast.success(error?.response?.data?.error || "An unexpected error occurred");
                 }
@@ -171,14 +175,32 @@ const CreateDoc = () => {
     const formattedCreatedAt = formatCreateDate(docData?.createdAt);
     const formattedUpdatedAt = formatDate(docData?.updatedAt);
 // console.log(status)
+
+const copyToClipboard = () => {
+    if (docData.isPublish == 'publish') {
+        
+        const link = `https://mdoc.almahmud.top/view/${docData?._id}`; // Replace with the string or link you want to copy
+        navigator.clipboard.writeText(link).then(
+            () => {
+                toast.success('Copied')
+    },
+    (err) => {
+        console.error("Failed to copy: ", err);
+    }
+);
+}};
+
+
+
     return (
         <div>
             <div className='mx-2 my-3 sm:mx-6 flex gap-3'>
                 <button onClick={()=> window.history.back()} className=' bg-[#80808054] p-[4px] text-black rounded-sm cursor-pointer transition-all hover:bg-[#808080] hover:text-white w-16 text-center'>Back</button>
                 <button onClick={()=> navigate(`/preview`, { state: {docData}})} className=' bg-[#80808054] p-[4px] text-black rounded-sm cursor-pointer transition-all hover:bg-[#808080] hover:text-white w-16 text-center'>peview</button>
+                <button onClick={copyToClipboard} className={`text-sm p-2 ${docData.isPublish == 'unpublish' ? 'text-[#808080]' : 'text-black'}`} disabled={docData.isPublish == 'unpublish' && true} ><FaLink /></button>
             </div>
             {
-                token ? (<div className='mx-2 my-3 sm:mx-5 sm:mt-6 '>
+                token && Object.keys(docData).length !== 0 ? (<div className='mx-2 my-3 sm:mx-5 sm:mt-6 '>
                     <form onSubmit={updateTitle}>
                         <div className='mb-4  w-full flex justify-center mx-auto px-4 border-[3px] rounded-lg py-1 items-center gap-2'>
                             <label htmlFor="title" className=''>Title</label>
@@ -220,7 +242,7 @@ const CreateDoc = () => {
 
                         }}
                     />
-                </div>) : ""
+                </div>) : <Loading />
             }
         </div>
     )

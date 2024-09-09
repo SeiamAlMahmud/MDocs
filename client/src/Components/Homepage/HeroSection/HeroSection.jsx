@@ -19,7 +19,7 @@ const HeroSection = () => {
       <h1 className='text-center text-6xl lg:text-8xl pt-20  px-5 font-extrabold items-center flex justify-center flex-col'> <span>Make your Documents. </span> <br /> <span> </span> The best it can be with MDocs.
       </h1>
 
-      <h3 className="mt-16 mx-10 sm:mx-20 text-center text-xl md:text-4xl pb-20 sm:pb-24 font-semibold text-[#808080]">
+      <h3 className="mt-16 mx-10 sm:mx-20 text-center text-xl md:text-4xl pb-20 sm:pb-24  font-semibold text-[#808080]">
       {letters.map((letter, index) => (
         <span
           key={index}
