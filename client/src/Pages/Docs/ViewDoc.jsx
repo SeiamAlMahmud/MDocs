@@ -69,7 +69,6 @@ const ViewDoc = () => {
                 <span className='hover:text-[#BB0055] hover:underline cursor-pointer'> {docData?.title}</span>  </h1>
             </div>
             <div>
-              <h3>Created by: {docData?.uploadBy}</h3>
             </div>
             <div>
               <h3>Created: {formatedDate(docData?.createdAt)}</h3>
@@ -78,6 +77,7 @@ const ViewDoc = () => {
               <h3>Last Updated: {formatedDate(docData?.updatedAt)}</h3>
             </div>
             <div className=' border-2 p-3  mb-8 rounded-lg' dangerouslySetInnerHTML={{ __html: docData?.content }} />
+            <h3 className='mb-3 text-lg'>Created by: <b>{docData?.uploadBy}</b></h3>
             <button
               onClick={handlePrint}
               className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 flex items-center text-sm md:text-lg xl:text-2xl justify-center gap-1 w-20 xl:w-36 mb-24'
